@@ -1,5 +1,6 @@
 <?php
 include_once '../config/config.php';          //Settings initialization
+include_once '../config/db.php';          //Connection to the database
 include_once '../library/mainFunctions.php';  //Include the file with funcitons which are common for all web site
 
 $controllerNameFromGet = filter_input(INPUT_GET, 'controller');

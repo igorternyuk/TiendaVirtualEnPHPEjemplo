@@ -30,3 +30,7 @@ function debug($value = null, $die = TRUE){
         die;
     }
 }
+
+function getArrayFromRs(){
+    
+}
