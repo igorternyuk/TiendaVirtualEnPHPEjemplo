@@ -1,0 +1,51 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 25.02.2019, 10:56:44
+    Author     : Igor Ternyuk <xmonad100 at gmail.com>
+*/
+
+body{
+    padding: 0;
+    display: block;
+}
+
+.hideme{
+   display: none;
+}
+
+#header {
+    height: 70px;
+    text-align: center;
+}
+
+#leftColumn{
+    width: 200px;
+    float: left;
+}
+
+#leftMenu, #loginBox, #registerBox{
+    padding-bottom: 20px
+}
+
+#centerColumn{
+    width: 600px;
+    float: left;
+    padding-left: 90px;
+}
+
+#footer{
+    clear:both;
+}
+
+.menuCaption{
+    padding: 3px;
+    font-weight: bold;
+}
+
+.cartBox{
+    padding: 5px 0px 5px 0px;
+}
