@@ -9,11 +9,14 @@
  */
 
 include_once '../models/CategoryModel.php';
+include_once '../models/ProductModel.php';
 
 function indexAction($smarty){
-    $allCats = getAllMainCategoriesWithChildren();
+    $rsCategories = getAllMainCategoriesWithChildren();
+    $rsProducts = getLastProducts(16);
     $smarty->assign('pageTitle', 'Главная страница сайта');
-    $smarty->assign('allCats', $allCats);
+    $smarty->assign('allCats', $rsCategories);
+    $smarty->assign('rsProducts', $rsProducts);
     //debug($allCats);
     loadTemplate($smarty, 'header');
     loadTemplate($smarty, 'index');

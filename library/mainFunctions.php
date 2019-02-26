@@ -1,5 +1,7 @@
 <?php
 
+include_once '../config/db.php';
+
 /**
  * Forms the requested web page
  * @param type $smarty instance of template engine
@@ -31,6 +33,17 @@ function debug($value = null, $die = TRUE){
     }
 }
 
-function getArrayFromRs(){
+function executeSelection($query){
+    $db = Database::getInstance();
+    $connection = $db->getConnection();
+    $rs = $connection->query($query);
+    $smartyRs = array();
     
+    while($row = $rs->fetch_assoc()){
+        array_push($smartyRs, $row);
+    }
+    
+    $db->closeConnection();
+    
+    return $smartyRs;
 }
