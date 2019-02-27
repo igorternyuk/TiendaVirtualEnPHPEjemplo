@@ -22,8 +22,10 @@ function indexAction($smarty){
     
     if($selectedCategory['parent_id'] == 0){
         $rsChildren = getCategoryChildren($categoryId);
+        $smarty->assign('pageTitle', $selectedCategory['name']);
     } else {
         $rsProducts = getProductsByCategoryId($categoryId);
+        $smarty->assign('pageTitle', "Товары ".$selectedCategory['name']);
     }
     
     

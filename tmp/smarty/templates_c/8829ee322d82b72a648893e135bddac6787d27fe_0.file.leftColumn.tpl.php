@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-02-26 15:09:56
+/* Smarty version 3.1.33, created on 2019-02-27 11:25:53
   from '/opt/lampp/htdocs/myshop.local/views/default/leftColumn.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5c7548b4a4b945_66679881',
+  'unifunc' => 'content_5c7665b12a9678_87198709',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8829ee322d82b72a648893e135bddac6787d27fe' => 
     array (
       0 => '/opt/lampp/htdocs/myshop.local/views/default/leftColumn.tpl',
-      1 => 1551189627,
+      1 => 1551263130,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5c7548b4a4b945_66679881 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5c7665b12a9678_87198709 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div id="leftColumn">
 <div id="leftMenu">
 <div class="menuCaption">Меню:</div>
@@ -30,8 +30,8 @@ $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->t
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['item']->value) {
 ?>
-    <a href="?controller=category&id=<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
-"><?php echo $_smarty_tpl->tpl_vars['item']->value['name'];?>
+    <a href="/category/<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
+/"><?php echo $_smarty_tpl->tpl_vars['item']->value['name'];?>
 </a><br />
     <?php if (isset($_smarty_tpl->tpl_vars['item']->value['children'])) {?>
         <?php
@@ -39,8 +39,8 @@ $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->t
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['child']->value) {
 ?>
-            ---><a href="?controller=category&id=<?php echo $_smarty_tpl->tpl_vars['child']->value['id'];?>
-"><?php echo $_smarty_tpl->tpl_vars['child']->value['name'];?>
+            ---><a href="/category/<?php echo $_smarty_tpl->tpl_vars['child']->value['id'];?>
+/"><?php echo $_smarty_tpl->tpl_vars['child']->value['name'];?>
 </a>
         <?php
 }
