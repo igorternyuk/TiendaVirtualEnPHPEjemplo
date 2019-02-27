@@ -1,20 +1,5 @@
 <?php
 
-/*$dbLocation = "127.0.0.1";
-$dbName = "myshop";
-$dbUsername = "zenko";
-$dbPassword = "1319";
-
-$db = mysqli_connect($dbLocation, $dbUsername, $dbPassword, $dbName);
-
-if(mysqli_connect_errno()){
-    echo "Could not connect to the database ".mysqli_connect_error();
-    exit();
-}
- 
-mysqli_set_charset($db, "utf8");*/
-//include_once 'dbCredentials.php';
-
 class Database{
     private static $instance;
     private $location;

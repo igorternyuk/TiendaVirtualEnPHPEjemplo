@@ -1,8 +1,32 @@
 <?php
 
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Product controller
  */
 
+include_once '../models/CategoryModel.php';
+include_once '../models/ProductModel.php';
+
+function indexAction($smarty){
+    $productID = filter_input(INPUT_GET, 'id');
+    
+    if(!isset($productID)){
+        $productID = null;
+    }
+    
+    $selectedProduct = getProductById($productID);
+    $allCategories = getAllMainCategoriesWithChildren();
+    
+    $smarty->assign('pageTitle', $selectedProduct['name']);
+    $smarty->assign('allCats', $allCategories);
+    $smarty->assign('selectedProduct', $selectedProduct);
+    
+    $smarty->assign('itemInCart', 0);
+    if(in_array($productID, $_SESSION['cart'])){
+        $smarty->assign('itemInCart', 1);
+    }
+    
+    loadTemplate($smarty, 'header');
+    loadTemplate($smarty, 'product');
+    loadTemplate($smarty, 'footer');
+}

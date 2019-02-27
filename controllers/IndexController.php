@@ -3,11 +3,6 @@
  * Main page controller
  */
 
-/**
- * 
- * @param type $smarty template engine instance
- */
-
 include_once '../models/CategoryModel.php';
 include_once '../models/ProductModel.php';
 

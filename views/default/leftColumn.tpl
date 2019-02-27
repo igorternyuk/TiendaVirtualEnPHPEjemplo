@@ -12,4 +12,14 @@
 {/foreach}
 
 </div>
+
+<div class="menuCaption">Корзина</div>
+<a href="/cart/" title="Перейти в корзину">В корзину</a>
+<span id="cartItemCount">
+    {if $cartItemCount > 0}
+        {$cartItemCount}
+    {else}
+        Пусто
+    {/if}
+</span>
 </div>
