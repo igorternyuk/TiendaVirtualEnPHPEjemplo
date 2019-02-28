@@ -14,7 +14,7 @@
 </div>
 
 <div class="menuCaption">Корзина</div>
-<a href="/cart/" title="Перейти в корзину">В корзину</a>
+<a href="/cart/" title="Перейти в корзину">В корзине</a>
 <span id="cartItemCount">
     {if $cartItemCount > 0}
         {$cartItemCount}

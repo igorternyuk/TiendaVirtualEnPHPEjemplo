@@ -46,3 +46,18 @@ function getProductById($id){
     $res = executeSelection($query);
     return count($res) > 0 ? $res[0] : false;
 }
+
+/**
+ * retrieves array of products by id array
+ * @param array $ids product identifiers
+ * @return array products in cart
+ */
+function getProductsByIds($ids){
+    foreach ($ids as &$id){
+        $id = intval($id);
+    }
+    $ids = implode($ids, ", ");
+    $query = "SELECT * FROM product WHERE id IN ({$ids});";
+    return executeSelection($query);
+    
+}
