@@ -1,4 +1,42 @@
 
+function getData(objForm){
+    console.log("js - getting data from register form");
+    var data = {};
+    console.log($(objForm).children('input'));  
+    $('input, select, textarea', $(objForm)).each(function(){
+        if(this.name && this.name !== ''){
+            data[this.name] = this.value;
+            console.log("data[" + this.name + "]=" + this.value);
+        }
+    });
+
+    return data;
+}
+
+function registerNewUser(){
+    var postData = getData("#registerBox");
+    console.log(postData);
+    $.ajax({
+        type: 'POST',
+        async: false,
+        url: '/user/register/',
+        data: postData,
+        dataType: 'json',
+        success: function(data){
+            if(data['success']){
+                alert(data['message']);
+                $("#registerBox").hide();
+            } else {
+                alert(data['message']);
+            }
+        }        
+    });
+}
+
+function showRegisterBox(){
+    
+}
+
 function calcTotal(){
     console.log("Calculating subtotal");
     let total = 0;

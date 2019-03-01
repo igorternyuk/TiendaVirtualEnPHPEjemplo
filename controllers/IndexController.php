@@ -12,7 +12,6 @@ function indexAction($smarty){
     $smarty->assign('pageTitle', 'Главная страница сайта');
     $smarty->assign('allCats', $rsCategories);
     $smarty->assign('rsProducts', $rsProducts);
-    //debug($allCats);
     loadTemplate($smarty, 'header');
     loadTemplate($smarty, 'index');
     loadTemplate($smarty, 'footer');

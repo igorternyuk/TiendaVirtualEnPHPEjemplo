@@ -33,17 +33,45 @@ function debug($value = null, $die = TRUE){
     }
 }
 
+/**
+ * Converts sql result set to associative array for smarty
+ * @param resultSet $rs - sql result set
+ * @return array
+ */
+function fetchSmartyArray($rs){
+    $smartyRs = array();
+    if($rs){
+        while($row = $rs->fetch_assoc()){
+            array_push($smartyRs, $row);
+        }
+    }
+    return $smartyRs;
+}
+
+/**
+ * Executes selection queries
+ * @param string $query - select query
+ * @return array selection results
+ */
 function executeSelection($query){
     $db = Database::getInstance();
     $connection = $db->getConnection();
     $rs = $connection->query($query);
-    $smartyRs = array();
-    
-    while($row = $rs->fetch_assoc()){
-        array_push($smartyRs, $row);
-    }
-    
+    $smartyRs = fetchSmartyArray($rs);
     $db->closeConnection();
-    
     return $smartyRs;
+}
+
+/**
+ * Executes update sql statements such as INSERT, UPDATE or DELETE
+ * @param string $sql - update query
+ * @return true in the case of success and false otherwise
+ */
+function executeUpdate($sql){
+    $db = Database::getInstance();
+    $connection = $db->getConnection();
+    $res = $connection->query($sql);
+    $errorOccured = mysqli_error($connection);
+    $db->closeConnection();
+    return $errorOccured ? false : true;
 }

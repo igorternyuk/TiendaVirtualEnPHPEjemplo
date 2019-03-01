@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-02-28 10:07:37
+/* Smarty version 3.1.33, created on 2019-03-01 19:03:36
   from '/opt/lampp/htdocs/myshop.local/views/default/leftColumn.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5c77a4d923d9c8_54417692',
+  'unifunc' => 'content_5c7973f8eb3d51_13655879',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8829ee322d82b72a648893e135bddac6787d27fe' => 
     array (
       0 => '/opt/lampp/htdocs/myshop.local/views/default/leftColumn.tpl',
-      1 => 1551289851,
+      1 => 1551463400,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5c77a4d923d9c8_54417692 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5c7973f8eb3d51_13655879 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div id="leftColumn">
 <div id="leftMenu">
 <div class="menuCaption">Меню:</div>
@@ -51,6 +51,19 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
+</div>
+
+<div id="registerBox">
+    <div class="menuCaption showHidden" onclick="showRegisterBox();">Регистрация</div>
+    <div id="registerBoxHidden">
+        E-mail:<br />
+        <input type="email" id="email" name="email" value="" required/><br />
+        Пароль:<br />
+        <input type="password" id="pwd1" name="pwd1" value="" required><br />
+        Повторить пароль:<br />
+        <input type="password" id="pwd2" name="pwd2" value="" required><br />
+        <input type="button" name="btnRegister" value="Загеристрироваться" onclick="registerNewUser();">
+    </div>
 </div>
 
 <div class="menuCaption">Корзина</div>
