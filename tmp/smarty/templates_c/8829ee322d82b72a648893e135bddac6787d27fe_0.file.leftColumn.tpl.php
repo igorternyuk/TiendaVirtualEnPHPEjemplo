@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-03-01 19:03:36
+/* Smarty version 3.1.33, created on 2019-03-02 12:42:17
   from '/opt/lampp/htdocs/myshop.local/views/default/leftColumn.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5c7973f8eb3d51_13655879',
+  'unifunc' => 'content_5c7a6c1971bbb8_81247066',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8829ee322d82b72a648893e135bddac6787d27fe' => 
     array (
       0 => '/opt/lampp/htdocs/myshop.local/views/default/leftColumn.tpl',
-      1 => 1551463400,
+      1 => 1551526919,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5c7973f8eb3d51_13655879 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5c7a6c1971bbb8_81247066 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div id="leftColumn">
 <div id="leftMenu">
 <div class="menuCaption">Меню:</div>
@@ -53,15 +53,27 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
 </div>
 
+<div id="userBox" class="hideme">
+    <a id="userLink" href="#"></a><br />
+    <a href="/user/logout/" onclick="logout();">Выйти</a>        
+</div>
+
+<div id="loginBox">
+    <div class="menuCaption"> Авторизация</div>
+    <input type="email" id="loginEmail" name="loginEmail" value="" placeholder="email"/><br /><br />
+    <input type="password" id="loginPassword" name="loginPassword" value="" placeholder="password"/><br /><br />
+    <input type="button" onclick="login();" value="Войти" />
+</div>
+
 <div id="registerBox">
-    <div class="menuCaption showHidden" onclick="showRegisterBox();">Регистрация</div>
+    <div class="menuCaption showHidden" onclick="toggleRegisterBox();">Регистрация</div>    
     <div id="registerBoxHidden">
         E-mail:<br />
         <input type="email" id="email" name="email" value="" required/><br />
         Пароль:<br />
         <input type="password" id="pwd1" name="pwd1" value="" required><br />
         Повторить пароль:<br />
-        <input type="password" id="pwd2" name="pwd2" value="" required><br />
+        <input type="password" id="pwd2" name="pwd2" value="" required><br /><br />
         <input type="button" name="btnRegister" value="Загеристрироваться" onclick="registerNewUser();">
     </div>
 </div>

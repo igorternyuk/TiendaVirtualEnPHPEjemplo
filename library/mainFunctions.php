@@ -75,3 +75,9 @@ function executeUpdate($sql){
     $db->closeConnection();
     return $errorOccured ? false : true;
 }
+
+
+function redirect($url = '/'){
+    header("Location: {$url}");
+    exit;
+}

@@ -23,18 +23,59 @@ function registerNewUser(){
         data: postData,
         dataType: 'json',
         success: function(data){
+            console.log(data);
             if(data['success']){
-                alert(data['message']);
+                console.log("Hiding register form");
                 $("#registerBox").hide();
-            } else {
-                alert(data['message']);
+                $("#userLink").attr('href', '/user/');
+                $("#userLink").html(data['userName']);
+                $("#userBox").show();
             }
+            alert(data['message']);
         }        
     });
 }
 
-function showRegisterBox(){
-    
+function login(){
+    var loginData = getData("#loginBox");
+    $.ajax({
+        type: 'POST',
+        async: false,
+        url: "/user/login/",
+        data: loginData,
+        dataType: 'json',
+        success: function(data){
+            if(data['success']){
+                $("#loginBox").hide();
+                $("#registerBox").hide();
+                $("#userLink").attr('href', '/user/');
+                $("#userLink").html(data['displayName']);
+                $("#userBox").show();
+            }
+        }
+    });
+}
+
+function logout(){
+    var datos = {};
+    $.ajax({
+        type: 'POST',
+        async: false,
+        url: "/user/logout/",
+        data: datos,
+        dataType: 'json',
+        success: function(data){
+            
+        }
+    });
+}
+
+function toggleRegisterBox(){
+    if($("#registerBoxHidden").is(":hidden")){
+        $("#registerBoxHidden").show();
+    } else if($("#registerBoxHidden").is(":visible")){
+        $("#registerBoxHidden").hide();
+    }   
 }
 
 function calcTotal(){

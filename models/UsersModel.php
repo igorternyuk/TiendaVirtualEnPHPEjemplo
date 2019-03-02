@@ -15,6 +15,33 @@ include_once '../config/db.php';
  * @param string $address user address
  * return array registered user credentials
  */
+
+function checkRegisterParams($email, $pwd1, $pwd2){
+    $res = array();
+    
+    if(! $email){
+        $res['success'] = 0;
+        $res['message'] = "Введите email!";
+    }
+    
+    if(! $pwd1){
+        $res['success'] = 0;
+        $res['message'] = "Введите пароль";
+    }
+    
+    if(! $pwd2){
+        $res['success'] = 0;
+        $res['message'] = "Введите еще раз пароль для потверждения";
+    }
+    
+    if($pwd1 !== $pwd2){
+        $res['success'] = 0;
+        $res['message'] = "Пароли не совпадают";
+    }
+    
+    return $res;
+}
+
 function registerNewUser($email, $passwordMD5, $name, $phone, $address){
     $db = Database::getInstance();
     $connection = $db->getConnection();
@@ -54,28 +81,30 @@ function checkIfEmailExists($email){
     return $rs and count($rs) > 0;
 }
 
-function checkRegisterParams($email, $pwd1, $pwd2){
-    $res = array();
+/**
+ * 
+ * @param string $email user email
+ * @param string $password user password
+ * @return array user data
+ */
+function loginUser($email, $password){
+    //Check email
+    $db = Database::getInstance();
+    $connection = $db->getConnection();
+    $email = htmlspecialchars(mysqli_real_escape_string($connection, $email));
+    $db->closeConnection();
     
-    if(! $email){
-        $res['success'] = 0;
-        $res['message'] = "Введите email!";
+    //Encrypt password
+    $password = md5($password);
+    
+    $sql = "SELECT * FROM user WHERE (`email` = '{$email}' "
+           . "AND `password` = '{$password}') LIMIT 1;";
+    $rs = executeSelection($sql);
+    if(isset($rs[0])){
+        $rs['success'] = 1;
+    } else {
+        $rs['success'] = 0;
     }
     
-    if(! $pwd1){
-        $res['success'] = 0;
-        $res['message'] = "Введите пароль";
-    }
-    
-    if(! $pwd2){
-        $res['success'] = 0;
-        $res['message'] = "Введите еще раз пароль для потверждения";
-    }
-    
-    if($pwd1 !== $pwd2){
-        $res['success'] = 0;
-        $res['message'] = "Пароли не совпадают";
-    }
-    
-    return $res;
+    return $rs;
 }
