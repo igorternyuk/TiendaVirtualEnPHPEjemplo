@@ -108,3 +108,32 @@ function loginUser($email, $password){
     
     return $rs;
 }
+
+function updateCurrentuserData($name, $phone, $address, $pwd1, $pwd2, $currPwd){
+    $db = Database::getInstance();
+    $connection = $db->getConnection();
+    $email = htmlspecialchars(mysqli_real_escape_string($connection, $_SESSION['user']['email']));
+    $name = htmlspecialchars(mysqli_real_escape_string($connection, $name));
+    $phone = htmlspecialchars(mysqli_real_escape_string($connection, $phone));
+    $address = htmlspecialchars(mysqli_real_escape_string($connection, $address));
+    $pwd1 = htmlspecialchars(mysqli_real_escape_string($connection, $pwd1));
+    $pwd2 = htmlspecialchars(mysqli_real_escape_string($connection, $pwd2));
+    $currPwd = htmlspecialchars(mysqli_real_escape_string($connection, $currPwd));
+    $db->closeConnection();
+    $pwd1 = trim($pwd1);
+    $pwd2 = trim($pwd2);
+    $currPwd = trim($currPwd);
+    if($currPwd && (!$pwd1 || ($pwd1 == $pwd2))){
+        $currPwdMD5 = md5($currPwd);
+        $sql = "UPDATE user SET ";
+        if($pwd1){
+            $newPwdMD5 = md5($pwd1);
+            $sql .= "  `password` = '{$newPwdMD5}', ";
+        }
+        $sql .= " `name` = '{$name}', `phone` = '{$phone}',"
+            . " `address` = '{$address}' WHERE (`email` = '{$email}'"
+            . " AND `password` = '{$currPwdMD5}') LIMIT 1;";
+        return executeUpdate($sql);
+    }
+    return false;        
+}

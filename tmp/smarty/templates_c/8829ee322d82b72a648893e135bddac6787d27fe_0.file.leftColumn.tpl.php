@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-03-02 12:42:17
+/* Smarty version 3.1.33, created on 2019-03-04 12:35:38
   from '/opt/lampp/htdocs/myshop.local/views/default/leftColumn.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5c7a6c1971bbb8_81247066',
+  'unifunc' => 'content_5c7d0d8abb8c03_63024199',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8829ee322d82b72a648893e135bddac6787d27fe' => 
     array (
       0 => '/opt/lampp/htdocs/myshop.local/views/default/leftColumn.tpl',
-      1 => 1551526919,
+      1 => 1551699295,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5c7a6c1971bbb8_81247066 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5c7d0d8abb8c03_63024199 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div id="leftColumn">
 <div id="leftMenu">
 <div class="menuCaption">Меню:</div>
@@ -53,8 +53,18 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
 </div>
 
-<div id="userBox" class="hideme">
-    <a id="userLink" href="#"></a><br />
+<?php if (isset($_smarty_tpl->tpl_vars['activeUser']->value)) {?>
+
+<div id="userBox">
+    <a id="userLink" href="/user/"><?php echo $_smarty_tpl->tpl_vars['activeUser']->value['displayName'];?>
+</a><br />
+    <a href="/user/logout/" onclick="logout();">Выйти</a>        
+</div>
+    
+<?php } else { ?>
+
+<div id="userBox" class="userBoxHidden">
+    <a id="userLink" href="/user/"></a><br />
     <a href="/user/logout/" onclick="logout();">Выйти</a>        
 </div>
 
@@ -67,7 +77,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
 <div id="registerBox">
     <div class="menuCaption showHidden" onclick="toggleRegisterBox();">Регистрация</div>    
-    <div id="registerBoxHidden">
+    <div id="registerBoxHidden"class="hideme">
         E-mail:<br />
         <input type="email" id="email" name="email" value="" required/><br />
         Пароль:<br />
@@ -77,6 +87,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         <input type="button" name="btnRegister" value="Загеристрироваться" onclick="registerNewUser();">
     </div>
 </div>
+    
+<?php }?>
 
 <div class="menuCaption">Корзина</div>
 <a href="/cart/" title="Перейти в корзину">В корзине</a>

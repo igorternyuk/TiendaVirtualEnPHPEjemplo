@@ -70,7 +70,7 @@ function executeSelection($query){
 function executeUpdate($sql){
     $db = Database::getInstance();
     $connection = $db->getConnection();
-    $res = $connection->query($sql);
+    $connection->query($sql);
     $errorOccured = mysqli_error($connection);
     $db->closeConnection();
     return $errorOccured ? false : true;

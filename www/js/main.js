@@ -1,8 +1,7 @@
-
 function getData(objForm){
     console.log("js - getting data from register form");
     var data = {};
-    console.log($(objForm).children('input'));  
+    console.log($(objForm).children('input textarea select'));  
     $('input, select, textarea', $(objForm)).each(function(){
         if(this.name && this.name !== ''){
             data[this.name] = this.value;
@@ -11,6 +10,29 @@ function getData(objForm){
     });
 
     return data;
+}
+
+function updateUserData(){
+    var userData = getData("#userData");
+    console.log("userData:");
+    console.log(userData);
+    $.ajax({
+        type: 'POST',
+        async: false,
+        url: "/user/update/",
+        data: userData,
+        dataType: 'json',
+        success: function(data){
+            if(data['success']){
+                console.log("receivedData:");
+                console.log(data);
+                $("#userLink").attr('href', '/user/');
+                $("#userLink").html(data['displayName']);
+            }
+                
+            alert(data['message']);
+        }
+    });
 }
 
 function registerNewUser(){
@@ -27,6 +49,7 @@ function registerNewUser(){
             if(data['success']){
                 console.log("Hiding register form");
                 $("#registerBox").hide();
+                $("#loginBox").hide();
                 $("#userLink").attr('href', '/user/');
                 $("#userLink").html(data['userName']);
                 $("#userBox").show();
@@ -50,7 +73,10 @@ function login(){
                 $("#registerBox").hide();
                 $("#userLink").attr('href', '/user/');
                 $("#userLink").html(data['displayName']);
+                console.log('show user box');
                 $("#userBox").show();
+            } else {
+                alert(data['message']);
             }
         }
     });

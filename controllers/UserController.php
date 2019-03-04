@@ -75,8 +75,65 @@ function logoutAction(){
         unset($_SESSION['user']);
     }
     redirect("/");
-    //$resData["url"] = "/";
-    //echo json_encode($resData);
 }
 
 
+function indexAction($smarty){
+    if(!isset($_SESSION['user'])){
+        redirect("/");
+    }
+    
+    $allCats = getAllMainCategoriesWithChildren();
+    
+    $smarty->assign("pageTitle", "Личный кабинет");
+    $smarty->assign("allCats", $allCats);
+    
+    loadTemplate($smarty, 'header');
+    loadTemplate($smarty, 'user');
+    loadTemplate($smarty, 'footer');
+}
+
+function updateAction(){
+
+    if(!isset($_SESSION['user'])){
+        redirect("/");
+    }
+    
+    $email = isset($_POST['newEmail']) ? $_POST['newEmail'] : null; 
+    $name = isset($_POST['newName']) ? $_POST['newName'] : null; 
+    $phone = isset($_POST['newPhone']) ? $_POST['newPhone'] : null; 
+    $address = isset($_POST['newAddress']) ? $_POST['newAddress'] : null; 
+    $pwd1 = isset($_POST['newPwd1']) ? $_POST['newPwd1'] : null; 
+    $pwd2 = isset($_POST['newPwd2']) ? $_POST['newPwd2'] : null; 
+    $currPwd = isset($_POST['currPwd']) ? $_POST['currPwd'] : null; 
+    $currPwdMD5 = md5($currPwd);
+    
+    $resData = array();
+    if(!$currPwd || ($_SESSION['user']['password'] != $currPwdMD5)){
+        $resData['success'] = 0;
+        $resData['message'] = "Неправильный пароль";        
+        
+        echo json_encode($resData);
+        return false;
+    }
+    
+    $upateSuccess = updateCurrentuserData($name, $phone, $address, $pwd1, $pwd2, $currPwd);
+    if($upateSuccess){
+        $resData['success'] = 1;
+        $resData['message'] = "Новые данные успешно сохранены";        
+        $_SESSION['user']['name'] = $name;
+        $_SESSION['user']['phone'] = $phone;
+        $_SESSION['user']['address'] = $address;
+        if(($pwd1 && ($pwd1 == $pwd2))){
+            $newPwd = md5(trim($pwd1));
+            $_SESSION['user']['password'] = $newPwd;
+        }
+        $_SESSION['user']['name'] = $name;
+        $_SESSION['user']['displayName'] = $name ? $name : $_SESSION['user']['email'];
+        $resData['displayName'] = $_SESSION['user']['displayName'];
+    } else {
+        $resData['success'] = 0;
+        $resData['message'] = "Ошибка сохранения данных";
+    }
+    echo json_encode($resData);
+}

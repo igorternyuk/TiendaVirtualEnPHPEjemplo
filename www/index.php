@@ -23,6 +23,10 @@ $controllerName = isset($controllerNameFromGet)
 //Determine the action to work with
 $actionName = isset($_GET['action']) ? $_GET['action'] : 'index';
 
+if(isset($_SESSION['user'])){
+    $smarty->assign('activeUser', $_SESSION['user']);
+}
+
 $smarty->assign('cartItemCount', count($_SESSION['cart']));
 //Loading corresponding web page
 loadPage($smarty, $controllerName, $actionName);

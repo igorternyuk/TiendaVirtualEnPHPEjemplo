@@ -13,8 +13,17 @@
 
 </div>
 
-<div id="userBox" class="hideme">
-    <a id="userLink" href="#"></a><br />
+{if isset($activeUser) }
+
+<div id="userBox">
+    <a id="userLink" href="/user/">{$activeUser['displayName']}</a><br />
+    <a href="/user/logout/" onclick="logout();">Выйти</a>        
+</div>
+    
+{else}
+
+<div id="userBox" class="userBoxHidden">
+    <a id="userLink" href="/user/"></a><br />
     <a href="/user/logout/" onclick="logout();">Выйти</a>        
 </div>
 
@@ -27,7 +36,7 @@
 
 <div id="registerBox">
     <div class="menuCaption showHidden" onclick="toggleRegisterBox();">Регистрация</div>    
-    <div id="registerBoxHidden">
+    <div id="registerBoxHidden"class="hideme">
         E-mail:<br />
         <input type="email" id="email" name="email" value="" required/><br />
         Пароль:<br />
@@ -37,6 +46,8 @@
         <input type="button" name="btnRegister" value="Загеристрироваться" onclick="registerNewUser();">
     </div>
 </div>
+    
+{/if}
 
 <div class="menuCaption">Корзина</div>
 <a href="/cart/" title="Перейти в корзину">В корзине</a>
