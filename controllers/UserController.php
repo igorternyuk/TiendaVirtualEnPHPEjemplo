@@ -5,9 +5,12 @@
  */
 
 include_once '../models/CategoryModel.php';
-include_once '../models/OrdersModel.php';
+include_once '../models/OrderModel.php';
 include_once '../models/UsersModel.php';
 
+/**
+ * Registers a new user
+ */
 function registerAction(){
     $email = isset($_REQUEST['email']) ? $_REQUEST['email'] : null;
     $email = trim($email);
@@ -49,7 +52,12 @@ function registerAction(){
     echo json_encode($resData);
 }
 
-
+/**
+ * 
+ * @param string loginEmail POST parameter - user email to login
+ * @param string loginPassword POST parameter - user password
+ * @return the JSON representation of information about operation (user data, displayName, success)
+ */
 function loginAction(){
     $email = isset($_REQUEST['loginEmail']) ? $_REQUEST['loginEmail'] : null;
     $email = trim($email);
@@ -77,7 +85,11 @@ function logoutAction(){
     redirect("/");
 }
 
-
+/**
+ * Generates user page
+ * @link /user/
+ * @param smarty object $smarty template engine instance
+ */
 function indexAction($smarty){
     if(!isset($_SESSION['user'])){
         redirect("/");
@@ -93,6 +105,10 @@ function indexAction($smarty){
     loadTemplate($smarty, 'footer');
 }
 
+/**
+ * Updates user data
+ * @return boolean TRUE if success and FALSE otherwise
+ */
 function updateAction(){
 
     if(!isset($_SESSION['user'])){

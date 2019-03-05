@@ -15,7 +15,6 @@ function indexAction($smarty){
     }
     
     $selectedCategory = getCategoryById($categoryId);
-    //debug($selectedCategory);
     $allCategories = getAllMainCategoriesWithChildren();
     $rsChildren = null;
     $rsProducts = null;
@@ -27,9 +26,7 @@ function indexAction($smarty){
         $rsProducts = getProductsByCategoryId($categoryId);
         $smarty->assign('pageTitle', "Товары ".$selectedCategory['name']);
     }
-    
-    
-    //debug($selectedCategory['parent_id']);
+
     $smarty->assign('selectedCategory', $selectedCategory);
     $smarty->assign('allCats', $allCategories);
     $smarty->assign('rsChildren', $rsChildren);

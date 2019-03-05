@@ -21,31 +21,31 @@
 </div>
     
 {else}
-
-<div id="userBox" class="userBoxHidden">
-    <a id="userLink" href="/user/"></a><br />
-    <a href="/user/logout/" onclick="logout();">Выйти</a>        
-</div>
-
-<div id="loginBox">
-    <div class="menuCaption"> Авторизация</div>
-    <input type="email" id="loginEmail" name="loginEmail" value="" placeholder="email"/><br /><br />
-    <input type="password" id="loginPassword" name="loginPassword" value="" placeholder="password"/><br /><br />
-    <input type="button" onclick="login();" value="Войти" />
-</div>
-
-<div id="registerBox">
-    <div class="menuCaption showHidden" onclick="toggleRegisterBox();">Регистрация</div>    
-    <div id="registerBoxHidden"class="hideme">
-        E-mail:<br />
-        <input type="email" id="email" name="email" value="" required/><br />
-        Пароль:<br />
-        <input type="password" id="pwd1" name="pwd1" value="" required><br />
-        Повторить пароль:<br />
-        <input type="password" id="pwd2" name="pwd2" value="" required><br /><br />
-        <input type="button" name="btnRegister" value="Загеристрироваться" onclick="registerNewUser();">
+    <div id="userBox" class="userBoxHidden">
+        <a id="userLink" href="/user/"></a><br />
+        <a href="/user/logout/" onclick="logout();">Выйти</a>        
     </div>
-</div>
+    {if not isset($hideLoginBox)}
+        <div id="loginBox">
+            <div class="menuCaption"> Авторизация</div>
+            <input type="email" id="loginEmail" name="loginEmail" value="" placeholder="email"/><br /><br />
+            <input type="password" id="loginPassword" name="loginPassword" value="" placeholder="password"/><br /><br />
+            <input type="button" onclick="login();" value="Войти" />
+        </div>
+
+        <div id="registerBox">
+            <div class="menuCaption showHidden" onclick="toggleRegisterBox();">Регистрация</div>    
+            <div id="registerBoxHidden"class="hideme">
+                E-mail:<br />
+                <input type="email" id="email" name="email" value="" required/><br />
+                Пароль:<br />
+                <input type="password" id="pwd1" name="pwd1" value="" required><br />
+                Повторить пароль:<br />
+                <input type="password" id="pwd2" name="pwd2" value="" required><br /><br />
+                <input type="button" name="btnRegister" value="Загеристрироваться" onclick="registerNewUser();">
+            </div>
+        </div>
+    {/if}
     
 {/if}
 

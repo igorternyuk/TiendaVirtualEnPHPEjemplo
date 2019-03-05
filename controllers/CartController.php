@@ -7,9 +7,11 @@
 
 include_once '../models/CategoryModel.php';
 include_once '../models/ProductModel.php';
+include_once '../models/OrderModel.php';
+include_once '../models/PurchaseModel.php';
 
 /**
- * Adds product to cart by id
+ * Adds product to cart by idDescriptionDescription
  * @param integer id GET parameter - the id of product to add
  * @return the JSON representation of information about operation (success, cart item count)
  */
@@ -81,4 +83,81 @@ function indexAction($smarty){
     loadTemplate($smarty, 'footer');
 }
 
+
+/**
+ * AJAX function to prepare orders
+ * @param smarty $smarty template engine instance 
+ * @return type
+ */
+function orderAction($smarty){
+    $cartItems = isset($_SESSION['cart']) ? $_SESSION['cart'] : array();
+    
+    if(!$cartItems){
+        redirect("/cart/");
+        return; 
+    }
+    
+    /*
+     * Calculate cart product counts
+     */
+    $productCounts = array();
+    foreach ($cartItems as $productId) {
+        $itemCounterId = "itemCount_".$productId;
+        $count = filter_input(INPUT_POST, $itemCounterId);
+        $productCounts[$productId] = $count;
+    }
+    
+    /**
+     * Calculate subtotals and total
+     */
+    $productsInCart = getProductsByIds($cartItems);
+    $cartTotalSum = 0;
+    for($i = 0; $i < count($productsInCart); ++$i){
+        $product = $productsInCart[$i];
+        $id = $productsInCart[$i]['id'];
+        $count = isset($productCounts[$id]) ? $productCounts[$id] : 0;
+        if($count > 0){
+            $productsInCart[$i]['count'] = $count;
+            $productsInCart[$i]['subtotal'] = $count * $product['price'];
+            $cartTotalSum += $productsInCart[$i]['subtotal'];
+        } else {
+            unset($productsInCart[$i]);
+        }
+    }
+    
+    if(! $productsInCart){
+        echo "Корзина пуста";
+        return;
+    }
+    
+    $_SESSION['saleCart'] = $productsInCart;
+    $_SESSION['saleCartTotal'] = $cartTotalSum;
+    
+    $allCategories = getAllMainCategoriesWithChildren();
+    
+    $smarty->assign('pageTitle', "Ваш заказ");
+    $smarty->assign('allCats', $allCategories);
+    $smarty->assign('productsInCart', $productsInCart);
+    $smarty->assign('cartTotalSum', $cartTotalSum);
+    
+    /**
+     * hideLoginBox - flag to hide login box on the left column
+     */
+    if(!isset($_SESSION['user'])){
+        $smarty->assign('hideLoginBox', 1);
+    }
+    
+    loadTemplate($smarty, 'header');
+    loadTemplate($smarty, 'order');
+    loadTemplate($smarty, 'footer');
+}
+
+/**
+ * AJAX function to save orders
+ * @param array $_SESSION['saleCart'] array of purchased products
+ * @return json Information about operation (success, message)
+ */
+function saveorderAction(){
+    
+}
 

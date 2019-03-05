@@ -1,7 +1,8 @@
 {* Cart page*}
 
 {if $productsInCart}
-    <table border="1">
+    <form action="/cart/order/" method="post">
+        <table border="1">
         <tr>
             <th>№</th>
             <th>Наименование</th>
@@ -39,13 +40,15 @@
         {/foreach}
         
         <tr>
-            <th colspan="5">Общая сумма:</th>
+            <th colspan="4">Общая сумма:</th>
             <td>
                 <span id="totalCost" value="0"></span>
             </td>
+            <td><input type="submit" value="Оформить заказ"></td>
         </tr>
     
-    </table>        
+    </table> 
+    </form>           
         
 {else}
     <h1>Ваша корзина пуста</h1>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-02-28 15:14:02
+/* Smarty version 3.1.33, created on 2019-03-04 17:07:33
   from '/opt/lampp/htdocs/myshop.local/views/default/cart.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5c77ecaacc1982_79537613',
+  'unifunc' => 'content_5c7d4d45d42725_81091168',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f0a8bf6b73c516b26d344754cfd9f46aa21a642b' => 
     array (
       0 => '/opt/lampp/htdocs/myshop.local/views/default/cart.tpl',
-      1 => 1551363237,
+      1 => 1551706854,
       2 => 'file',
     ),
   ),
@@ -20,9 +20,10 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5c77ecaacc1982_79537613 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5c7d4d45d42725_81091168 (Smarty_Internal_Template $_smarty_tpl) {
 if ($_smarty_tpl->tpl_vars['productsInCart']->value) {?>
-    <table border="1">
+    <form action="/cart/order/" method="post">
+        <table border="1">
         <tr>
             <th>№</th>
             <th>Наименование</th>
@@ -86,13 +87,15 @@ $_smarty_tpl->tpl_vars['__smarty_foreach_products']->value['iteration']++;
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         
         <tr>
-            <th colspan="5">Общая сумма:</th>
+            <th colspan="4">Общая сумма:</th>
             <td>
                 <span id="totalCost" value="0"></span>
             </td>
+            <td><input type="submit" value="Оформить заказ"></td>
         </tr>
     
-    </table>        
+    </table> 
+    </form>           
         
 <?php } else { ?>
     <h1>Ваша корзина пуста</h1>

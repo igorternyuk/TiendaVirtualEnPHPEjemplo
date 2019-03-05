@@ -75,6 +75,10 @@ function login(){
                 $("#userLink").html(data['displayName']);
                 console.log('show user box');
                 $("#userBox").show();
+                $("#userName").val(data['userName']);
+                $("#userPhone").val(data['userPhone']);
+                $("#userAddress").val(data['userAddress']);
+                $("#btnSaveOrder").show();
             } else {
                 alert(data['message']);
             }
@@ -166,6 +170,29 @@ function removeFromCart(itemId){
                 $("#addToCart_" + itemId).show();
                 $("#removeFromCart_" + itemId).hide(); 
            } 
+        }
+    });
+}
+
+/**
+ * Saves order
+ * @returns {undefined}
+ */
+function saveOrder(){
+    let postData = getData("#formOrder");
+    $.ajax({
+        type: 'POST',
+        async: false,
+        url: "/cart/saveorder/",
+        data: postData,
+        dataType: 'json',
+        success: function(data){
+            if(data['success']){
+                document.location = '/';
+            } else {
+                
+            }
+            alert(data['message']);
         }
     });
 }
