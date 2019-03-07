@@ -16,3 +16,19 @@ function indexAction($smarty){
     loadTemplate($smarty, 'index');
     loadTemplate($smarty, 'footer');
 }
+
+function searchAction(){
+    $searchFilter = filter_input(INPUT_POST, 'searchFilter');
+    $sorter = filter_input(INPUT_POST, 'productSorter');
+    $searchResults = getProductsByName($searchFilter, $sorter);
+    $resData = [];
+    if(count($searchResults) > 0){
+        $resData['products'] = $searchResults;
+        $resData['success'] = 1;
+    } else {
+        $resData['products'] = [];
+        $resData['success'] = 0;
+    }
+    
+    echo json_encode($resData);
+}

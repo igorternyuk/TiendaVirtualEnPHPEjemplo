@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-03-05 10:30:23
+/* Smarty version 3.1.33, created on 2019-03-07 17:05:49
   from '/opt/lampp/htdocs/myshop.local/views/default/leftColumn.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5c7e41af6af5c1_80371718',
+  'unifunc' => 'content_5c81415dbb1710_60226458',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8829ee322d82b72a648893e135bddac6787d27fe' => 
     array (
       0 => '/opt/lampp/htdocs/myshop.local/views/default/leftColumn.tpl',
-      1 => 1551777908,
+      1 => 1551974746,
       2 => 'file',
     ),
   ),
@@ -20,11 +20,11 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5c7e41af6af5c1_80371718 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5c81415dbb1710_60226458 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div id="leftColumn">
 <div id="leftMenu">
 <div class="menuCaption">Меню:</div>
-
+<a href="/">Главная страница</a><br />
 <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['allCats']->value, 'item');
 if ($_from !== null) {

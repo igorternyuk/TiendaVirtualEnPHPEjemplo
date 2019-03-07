@@ -24,3 +24,14 @@ function createNewOrder($name, $phone, $address){
     }
     return false;
 }
+
+/**
+ * retrieves all orders of the user with given id
+ * @param int $userId user id
+ * $return array user orders
+ */
+function getUserOrders($userId){
+    $userId = intval($userId);
+    $sql = "SELECT * FROM `order` WHERE `user_id` = '{$userId}' ORDER by `id` DESC;";
+    return executeSelection($sql);
+}

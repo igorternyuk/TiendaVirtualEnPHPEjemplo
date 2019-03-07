@@ -199,4 +199,42 @@ function saveOrder(){
     });
 }
 
+function fetchProductsByName(){
+    let postData = getData("#searchBox");
+    console.log("postData: ");
+    console.log(postData);
+    $.ajax({
+        type: 'POST',
+        async: false,
+        url: "/index/search/",
+        data: postData,
+        dataType: 'json',
+        success: function(data){
+            if(data['success']){
+                let products = data['products'];
+                console.log(products);
+                var res = "";
+                var i = 0;
+                products.forEach(p => {
+                    ++i;
+                    res += "<div style='float:left; padding: 0px 30px 40px 0px'>";
+                    res += "<a href='/product/" + p['id'] + "/' >";
+                    res += "<img src='/images/product/" + p['image'] + "' width='100'/>";
+                    res += "</a><br />";
+                    res += " <b> Цена: $" + p['price'] + "</b><br />";
+                    res += "<a href='/product/" + p['id'] + "/'>" + p['name'] + "</a>";
+                    res += "</div>";
+                    if(i % 3 === 0){
+                        res += "<div style='clear: both;'></div>";
+                    }                    
+                });                
+                $("#results").html("<h2>Результаты:</h2>" + res);
+            } else {
+                $("#results").html("<h2>Ни одного товара не найдено</h2>");
+            }
+        }
+    });
+ 
+}
+
 

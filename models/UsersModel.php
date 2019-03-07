@@ -42,6 +42,15 @@ function checkRegisterParams($email, $pwd1, $pwd2){
     return $res;
 }
 
+/**
+ * Registers a new user
+ * @param string $email user email
+ * @param string $passwordMD5 user password encrypted with MD% algorithm
+ * @param string $name user name
+ * @param string $phone user phone
+ * @param string $address user address
+ * @return array information about operation(success)
+ */
 function registerNewUser($email, $passwordMD5, $name, $phone, $address){
     filterSQLParams($email, $name, $phone, $address);
     
@@ -65,6 +74,11 @@ function registerNewUser($email, $passwordMD5, $name, $phone, $address){
     return $rs;
 }
 
+/**
+ * Checks if given email exists
+ * @param string $email
+ * @return boolean TRUE if given email exists anf FALSE otherwise
+ */
 function checkIfEmailExists($email){
     $email = filterSQLParams($email);
     $sql = "SELECT id FROM `user` WHERE `email` = '{$email}' LIMIT 1;";
@@ -97,6 +111,16 @@ function loginUser($email, $password){
     return $rs;
 }
 
+/**
+ * Upsates user information
+ * @param string $name user name
+ * @param string $phone user phone 
+ * @param string $address user address
+ * @param string $pwd1 user new password
+ * @param string $pwd2 repeated user new password
+ * @param string $currPwd current user password
+ * @return boolean TRUE in the case of success and FALSE otherwise
+ */
 function updateCurrentuserData($name, $phone, $address, $pwd1, $pwd2, $currPwd){
     $email = $_SESSION['user']['email'];
     filterSQLParams($email, $name, $phone, $address, $pwd1, $pwd2, $currPwd);
@@ -117,3 +141,9 @@ function updateCurrentuserData($name, $phone, $address, $pwd1, $pwd2, $currPwd){
     }
     return false;        
 }
+
+function getCurrentUserOrders(){
+    $currUserId = isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : 0; 
+    return getUserOrders($currUserId);
+}
+

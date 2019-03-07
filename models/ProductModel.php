@@ -60,3 +60,9 @@ function getProductsByIds($ids){
     return executeSelection($query);
     
 }
+
+function getProductsByName($searchFilter, $sortBy = "name"){
+    filterSQLParams($searchFilter);
+    $query = "SELECT * FROM `product` WHERE `name` LIKE '%{$searchFilter}%' ORDER BY {$sortBy}; ";
+    return executeSelection($query);
+}

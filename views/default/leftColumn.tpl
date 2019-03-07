@@ -1,7 +1,7 @@
 <div id="leftColumn">
 <div id="leftMenu">
 <div class="menuCaption">Меню:</div>
-
+<a href="/">Главная страница</a><br />
 {foreach $allCats as $item}
     <a href="/category/{$item['id']}/">{$item['name']}</a><br />
     {if isset($item['children'])}

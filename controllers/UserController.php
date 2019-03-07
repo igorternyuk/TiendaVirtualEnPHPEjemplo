@@ -7,6 +7,7 @@
 include_once '../models/CategoryModel.php';
 include_once '../models/OrderModel.php';
 include_once '../models/UsersModel.php';
+include_once '../models/PurchaseModel.php';
 
 /**
  * Registers a new user
