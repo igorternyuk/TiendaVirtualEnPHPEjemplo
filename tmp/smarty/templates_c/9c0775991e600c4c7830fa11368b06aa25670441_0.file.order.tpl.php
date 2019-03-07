@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-03-05 10:34:10
+/* Smarty version 3.1.33, created on 2019-03-07 10:07:48
   from '/opt/lampp/htdocs/myshop.local/views/default/order.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5c7e4292805995_27110894',
+  'unifunc' => 'content_5c80df64a4d4c8_13258671',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9c0775991e600c4c7830fa11368b06aa25670441' => 
     array (
       0 => '/opt/lampp/htdocs/myshop.local/views/default/order.tpl',
-      1 => 1551778446,
+      1 => 1551783940,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5c7e4292805995_27110894 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5c80df64a4d4c8_13258671 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <h2>Данные заказа</h2>
 <form id="formOrder" action="/cart/saveorder/" method="post">
@@ -167,15 +167,15 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </tr>
                 <tr>
                     <td>Имя*</td>
-                    <td><input type="text" id="name" name="name" value=""></td>
+                    <td><input type="text" id="userName" name="name" value=""></td>
                 </tr>
                 <tr>
                     <td>Телефон*</td>
-                    <td><input type="text" id="phone" name="phone" value=""></td>
+                    <td><input type="text" id="userPhone" name="phone" value=""></td>
                 </tr>
                 <tr>
                     <td>Адрес*</td>
-                    <td><textarea type="text" id="address" name="address"></textarea></td>
+                    <td><textarea type="text" id="userAddress" name="address"></textarea></td>
                 </tr>
                 <tr>
                     <td colspan="2">

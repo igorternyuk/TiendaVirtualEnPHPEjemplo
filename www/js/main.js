@@ -53,6 +53,7 @@ function registerNewUser(){
                 $("#userLink").attr('href', '/user/');
                 $("#userLink").html(data['userName']);
                 $("#userBox").show();
+                $("#btnSaveOrder").show();
             }
             alert(data['message']);
         }        
@@ -188,11 +189,12 @@ function saveOrder(){
         dataType: 'json',
         success: function(data){
             if(data['success']){
+                alert(data['message']);
                 document.location = '/';
             } else {
-                
+                alert(data['message']);
             }
-            alert(data['message']);
+            
         }
     });
 }

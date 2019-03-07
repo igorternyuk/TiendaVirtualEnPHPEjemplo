@@ -33,7 +33,7 @@ function checkRegisterParams($email, $pwd1, $pwd2){
         $res['success'] = 0;
         $res['message'] = "Введите еще раз пароль для потверждения";
     }
-    
+
     if($pwd1 !== $pwd2){
         $res['success'] = 0;
         $res['message'] = "Пароли не совпадают";
@@ -43,13 +43,7 @@ function checkRegisterParams($email, $pwd1, $pwd2){
 }
 
 function registerNewUser($email, $passwordMD5, $name, $phone, $address){
-    $db = Database::getInstance();
-    $connection = $db->getConnection();
-    $email = htmlspecialchars(mysqli_real_escape_string($connection, $email));
-    $name = htmlspecialchars(mysqli_real_escape_string($connection, $name));
-    $phone = htmlspecialchars(mysqli_real_escape_string($connection, $phone));
-    $address = htmlspecialchars(mysqli_real_escape_string($connection, $address));
-    $db->closeConnection();
+    filterSQLParams($email, $name, $phone, $address);
     
     $sql = "INSERT INTO `user` (`email`, `password`, `name`, `phone`, `address`) "
             . " VALUES('{$email}', '{$passwordMD5}', '{$name}', '{$phone}',"
@@ -57,7 +51,7 @@ function registerNewUser($email, $passwordMD5, $name, $phone, $address){
     
     $rs = array();
     if(executeUpdate($sql)){
-        $sql = "SELECT * FROM user WHERE (`email` = '{$email}' AND "
+        $sql = "SELECT * FROM `user` WHERE (`email` = '{$email}' AND "
         . " `password` = '{$passwordMD5}') LIMIT 1;";
         $rs = executeSelection($sql);
         if($rs and count($rs) > 0){
@@ -72,10 +66,7 @@ function registerNewUser($email, $passwordMD5, $name, $phone, $address){
 }
 
 function checkIfEmailExists($email){
-    $db = Database::getInstance();
-    $connection = $db->getConnection();
-    $email = mysqli_real_escape_string($connection, $email);
-    $db->closeConnection();
+    $email = filterSQLParams($email);
     $sql = "SELECT id FROM `user` WHERE `email` = '{$email}' LIMIT 1;";
     $rs = executeSelection($sql);
     return $rs and count($rs) > 0;
@@ -89,11 +80,8 @@ function checkIfEmailExists($email){
  */
 function loginUser($email, $password){
     //Check email
-    $db = Database::getInstance();
-    $connection = $db->getConnection();
-    $email = htmlspecialchars(mysqli_real_escape_string($connection, $email));
-    $db->closeConnection();
-    
+    filterSQLParams($email);
+    //debug($email);
     //Encrypt password
     $password = md5($password);
     
@@ -110,16 +98,8 @@ function loginUser($email, $password){
 }
 
 function updateCurrentuserData($name, $phone, $address, $pwd1, $pwd2, $currPwd){
-    $db = Database::getInstance();
-    $connection = $db->getConnection();
-    $email = htmlspecialchars(mysqli_real_escape_string($connection, $_SESSION['user']['email']));
-    $name = htmlspecialchars(mysqli_real_escape_string($connection, $name));
-    $phone = htmlspecialchars(mysqli_real_escape_string($connection, $phone));
-    $address = htmlspecialchars(mysqli_real_escape_string($connection, $address));
-    $pwd1 = htmlspecialchars(mysqli_real_escape_string($connection, $pwd1));
-    $pwd2 = htmlspecialchars(mysqli_real_escape_string($connection, $pwd2));
-    $currPwd = htmlspecialchars(mysqli_real_escape_string($connection, $currPwd));
-    $db->closeConnection();
+    $email = $_SESSION['user']['email'];
+    filterSQLParams($email, $name, $phone, $address, $pwd1, $pwd2, $currPwd);
     $pwd1 = trim($pwd1);
     $pwd2 = trim($pwd2);
     $currPwd = trim($currPwd);

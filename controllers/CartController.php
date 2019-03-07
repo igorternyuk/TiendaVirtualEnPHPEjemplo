@@ -158,6 +158,39 @@ function orderAction($smarty){
  * @return json Information about operation (success, message)
  */
 function saveorderAction(){
+    $cart = isset($_SESSION['saleCart']) ? $_SESSION['saleCart'] : null;
+    $resData = array();
+    if(! $cart){
+        $resData['success'] = 0;
+        $resData['message'] = "Корзина пуста";
+        echo json_encode($resData);
+        return;
+    }
     
+    $userName = filter_input(INPUT_POST, 'userName');
+    $userPhone = filter_input(INPUT_POST, 'userPhone');
+    $userAddress = filter_input(INPUT_POST, 'userAddress');
+    
+    $orderId = createNewOrder($userName, $userPhone, $userAddress);
+    
+    if(! $orderId){
+        $resData['success'] = 0;
+        $resData['message'] = "Ошибка создания заказа";
+        echo json_encode($resData);
+        return;
+    }
+    
+    if(connectPurchasesToOrder($orderId, $cart)){
+       $resData['success'] = 1;
+       $resData['message'] = "Ваш заказ успешно сохранен.";
+       unset($_SESSION['cart']);
+       unset($_SESSION['saleCart']);
+       unset($_SESSION['saleCartTotal']);
+    } else {
+       $resData['success'] = 0;
+       $resData['message'] = "Ошибка сохранения заказа №".$orderId; 
+    }
+    
+    echo json_encode($resData);    
 }
 

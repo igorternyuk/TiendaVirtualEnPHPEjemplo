@@ -31,7 +31,6 @@ function getLastProducts($limit = null){
 function getProductsByCategoryId($categoryId){
     $id = intval($categoryId);
     $query = "SELECT * FROM product WHERE category_id = '{$id}';";
-    //echo "<br>".$query."<br>";
     return executeSelection($query);
 }
 

@@ -35,6 +35,11 @@ function getAllMainCategoriesWithChildren(){
     return $categories;
 }
 
+/**
+ * fetches category by id
+ * @param type $categoryId category id
+ * @return category if exists or null otherwise
+ */
 function getCategoryById($categoryId){
     $id = intval($categoryId);
     $query = "SELECT * FROM category where id = '{$id}';";

@@ -63,6 +63,8 @@ function loginAction(){
     $email = trim($email);
     $password = isset($_REQUEST['loginPassword']) ? $_REQUEST['loginPassword'] : null; 
     $password = trim($password);
+    //debug($email);
+    //debug($password);
     $userData = loginUser($email, $password);
     if($userData['success']){
         $userData = $userData[0];
@@ -115,7 +117,7 @@ function updateAction(){
         redirect("/");
     }
     
-    $email = isset($_POST['newEmail']) ? $_POST['newEmail'] : null; 
+    $email = filter_input(INPUT_POST, 'newEmail');
     $name = isset($_POST['newName']) ? $_POST['newName'] : null; 
     $phone = isset($_POST['newPhone']) ? $_POST['newPhone'] : null; 
     $address = isset($_POST['newAddress']) ? $_POST['newAddress'] : null; 

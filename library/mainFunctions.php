@@ -81,3 +81,15 @@ function redirect($url = '/'){
     header("Location: {$url}");
     exit;
 }
+
+function filterSQLParams(&...$params){
+    if(count($params) == 0){
+        return;
+    }
+    $db = Database::getInstance();
+    $connection = $db->getConnection();
+    foreach ($params as &$p) {
+        $p = htmlspecialchars(mysqli_real_escape_string($connection, $p));
+    }
+    $db->closeConnection();
+}
