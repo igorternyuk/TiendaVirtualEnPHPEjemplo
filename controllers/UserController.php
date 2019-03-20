@@ -99,9 +99,12 @@ function indexAction($smarty){
     }
     
     $allCats = getAllMainCategoriesWithChildren();
+    $userId = $_SESSION['user']['id'];
+    $allUserOrders = getUserOrders($userId);
     
     $smarty->assign("pageTitle", "Личный кабинет");
     $smarty->assign("allCats", $allCats);
+    $smarty->assign("allOrders", $allUserOrders);
     
     loadTemplate($smarty, 'header');
     loadTemplate($smarty, 'user');

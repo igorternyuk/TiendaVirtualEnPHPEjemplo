@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-03-04 12:58:35
+/* Smarty version 3.1.33, created on 2019-03-19 10:09:37
   from '/opt/lampp/htdocs/myshop.local/views/default/user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5c7d12ebf10e84_59845671',
+  'unifunc' => 'content_5c90b1d131cd74_61235246',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f30adf74e30145816c24c5ea8844af9e8184e244' => 
     array (
       0 => '/opt/lampp/htdocs/myshop.local/views/default/user.tpl',
-      1 => 1551700710,
+      1 => 1552986570,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5c7d12ebf10e84_59845671 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5c90b1d131cd74_61235246 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <h2>Ваши регистрационные данные</h2>
 
@@ -63,6 +63,106 @@ function content_5c7d12ebf10e84_59845671 (Smarty_Internal_Template $_smarty_tpl)
         <td><input type="button" id="btnUpdateUserData" name="btnUpdateUserData" value="Сохранить изменения" onclick="updateUserData();"></td>
     </tr>
 </table>    
+</div>
+<hr>    
+<div id="userOrders">
+    <table border='1'  cellpadding='1' cellspacing='1' >
+        <tr>
+            <th>№</th>
+            <th>Действие</th>
+            <th>ID Заказа</th>
+            <th>Сумма заказа</th>
+            <th>Статус</th>
+            <th>Дата создания</th>
+            <th>Дата оплаты</th>
+            <th>Дополнительная информация</th>
+        </tr>
+        <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['allOrders']->value, 'order', false, NULL, 'orders', array (
+  'iteration' => true,
+));
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['order']->value) {
+$_smarty_tpl->tpl_vars['__smarty_foreach_orders']->value['iteration']++;
+?>
+            <tr>
+                <td><?php echo (isset($_smarty_tpl->tpl_vars['__smarty_foreach_orders']->value['iteration']) ? $_smarty_tpl->tpl_vars['__smarty_foreach_orders']->value['iteration'] : null);?>
+</td>
+                <td><a id="toggleProducts_<?php echo $_smarty_tpl->tpl_vars['order']->value['id'];?>
+" href='#' onclick="toggleProductsByOrderId(<?php echo $_smarty_tpl->tpl_vars['order']->value['id'];?>
+); return false;">Показать товар заказа</a></td>
+                <td><?php echo $_smarty_tpl->tpl_vars['order']->value['id'];?>
+</td>
+                <td>$<?php echo $_smarty_tpl->tpl_vars['order']->value['total_sum'];?>
+</td>
+                <td>
+                    <?php if ($_smarty_tpl->tpl_vars['order']->value['status'] == 1) {?>
+                        Заказ оплачен
+                    <?php } else { ?>
+                        Заказ не оплачен
+                    <?php }?>
+                    
+                </td>
+                <td><?php echo $_smarty_tpl->tpl_vars['order']->value['date_created'];?>
+</td>
+                <td><?php echo $_smarty_tpl->tpl_vars['order']->value['date_payment'];?>
+</td>
+                <td><?php echo $_smarty_tpl->tpl_vars['order']->value['comment'];?>
+</td>
+            </tr>
+            <?php if ($_smarty_tpl->tpl_vars['order']->value['purchases']) {?>
+                <tr>
+                    <td colspan="8">
+                    <table id="products_<?php echo $_smarty_tpl->tpl_vars['order']->value['id'];?>
+" name="products_<?php echo $_smarty_tpl->tpl_vars['order']->value['id'];?>
+" class="hideme" border='1'  cellpadding='1' cellspacing='1' width='100%'>
+                        <tr>
+                            <th>№</th>
+                            <th>ID заказа</th>
+                            <th>ID покупки</th>
+                            <th>ID товара</th>
+                            <th>Название товара</th>
+                            <th>Цена за единицу</th>
+                            <th>Количество</th>
+                                                    </tr>
+                        <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['order']->value['purchases'], 'purchase', false, NULL, 'purchases', array (
+  'iteration' => true,
+));
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['purchase']->value) {
+$_smarty_tpl->tpl_vars['__smarty_foreach_purchases']->value['iteration']++;
+?>
+                            <tr>
+                                <td><?php echo (isset($_smarty_tpl->tpl_vars['__smarty_foreach_purchases']->value['iteration']) ? $_smarty_tpl->tpl_vars['__smarty_foreach_purchases']->value['iteration'] : null);?>
+</td>
+                                <td><?php echo $_smarty_tpl->tpl_vars['purchase']->value['order_id'];?>
+</td>
+                                <td><?php echo $_smarty_tpl->tpl_vars['purchase']->value['id'];?>
+</td>
+                                <td><?php echo $_smarty_tpl->tpl_vars['purchase']->value['product_id'];?>
+</td>
+                                <td><a href="/product/<?php echo $_smarty_tpl->tpl_vars['purchase']->value['product_id'];?>
+/"><?php echo $_smarty_tpl->tpl_vars['purchase']->value['product_name'];?>
+</a></td>
+                                <td>$<?php echo $_smarty_tpl->tpl_vars['purchase']->value['price'];?>
+</td>
+                                <td><?php echo $_smarty_tpl->tpl_vars['purchase']->value['amount'];?>
+</td>
+                            </tr>
+                        <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                    </table>
+                    </td>
+                </tr>
+            <?php }?>            
+        <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+    </table>
 </div>
 <?php }
 }

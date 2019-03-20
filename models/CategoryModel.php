@@ -7,6 +7,28 @@
 include_once '../config/db.php';
 
 /**
+ * Creates a new product category
+ * @param string $categoryName category name
+ * @param int $parentCategoryId parent category id
+ * @return id of last created category in the case of success and FALSE otherwise
+ */
+function createNewCategory($categoryName, $parentCategoryId = 0){
+    filterSQLParams($categoryName);
+    $parentCategoryId = intval($parentCategoryId);
+    $query = "INSERT INTO category (`name`,`parent_id`)"
+            . " VALUES('{$categoryName}','{$parentCategoryId}');";
+            
+    if(executeUpdate($query)){
+        $query = "SELECT `id` FROM category ORDER BY `id` DESC LIMIT 1;";
+        $res = executeSelection($query);
+        if(isset($res[0])){
+            return $res[0];
+        }
+    }
+    return false;
+}
+
+/**
  * retrieves all the children of given category id
  * @param type $categotyId category id
  * @return array of category children
@@ -17,13 +39,17 @@ function getCategoryChildren($categotyId){
     return executeSelection($query);
 }
 
+function getAllMainCategories(){
+    $query = "SELECT * FROM category WHERE parent_id = 0;";
+    return executeSelection($query);
+}
+
 /**
  * retrieves all main categories including children
  * @return array
  */
 function getAllMainCategoriesWithChildren(){
-    $query = "SELECT * FROM category WHERE parent_id = 0;";
-    $categories = executeSelection($query);
+    $categories = getAllMainCategories();
     
     foreach ($categories as &$category) {
         $children = getCategoryChildren($category['id']);

@@ -237,4 +237,14 @@ function fetchProductsByName(){
  
 }
 
+function toggleProductsByOrderId(orderId){
+    if($("#products_" + orderId).is(":visible")){
+        $("#products_" + orderId).hide();
+        $("#toggleProducts_" + orderId).html("Показать товары заказа");
+    } else {
+        $("#products_" + orderId).show();
+        $("#toggleProducts_" + orderId).html("Скрыть товары заказа");
+    }
+}
+
 

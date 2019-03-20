@@ -33,5 +33,10 @@ function createNewOrder($name, $phone, $address){
 function getUserOrders($userId){
     $userId = intval($userId);
     $sql = "SELECT * FROM `order` WHERE `user_id` = '{$userId}' ORDER by `id` DESC;";
-    return executeSelection($sql);
+    $userOrders = executeSelection($sql);
+    foreach($userOrders as &$order){
+        $orderId = $order['id'];
+        $order['purchases'] = getPurchasesByOrder($orderId);
+    }
+    return $userOrders;
 }
