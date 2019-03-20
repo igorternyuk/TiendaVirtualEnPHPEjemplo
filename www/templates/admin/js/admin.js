@@ -29,3 +29,25 @@ function newCategory(){
         }
     });
 }
+
+function updateCategory(categoryId){
+    let data = {};
+    console.log("Update category");
+    data["categoryId"] = categoryId;
+    data["newCategoryName"] = $("#categoryNewName_" + categoryId).val();
+    data["parentCategoryNewId"] = $("#parentCategoryNewId_" + categoryId).val();
+    console.log("data:");
+    console.log(data);
+    $.ajax({
+        type: 'POST',
+        async: false,
+        dataType: 'json',
+        data: data,
+        url: "/admin/updatecat/",
+        success: function(data){
+           if(data['success']){ 
+               alert(data['message']);
+           }
+        }
+    });
+}

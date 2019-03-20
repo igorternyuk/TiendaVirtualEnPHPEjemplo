@@ -28,6 +28,19 @@ function createNewCategory($categoryName, $parentCategoryId = 0){
     return false;
 }
 
+function updateCategory($categoryId, $newName, $newParentId = -1){
+    filterSQLParams($newName);
+    $categoryId = intval($categoryId);
+    $newParentId = intval($newParentId);
+    $set = " SET `name` = '{$newName}' ";
+    if($newParentId != -1){
+        $set .= " , `parent_id` = {$newParentId} ";
+    }
+    $query = "UPDATE category {$set} WHERE `id` = {$categoryId} LIMIT 1;";
+    //debug($query);
+    return executeUpdate($query);
+}
+
 /**
  * retrieves all the children of given category id
  * @param type $categotyId category id
@@ -39,8 +52,21 @@ function getCategoryChildren($categotyId){
     return executeSelection($query);
 }
 
+/**
+ * yields all main categories
+ * @return array
+ */
 function getAllMainCategories(){
     $query = "SELECT * FROM category WHERE parent_id = 0;";
+    return executeSelection($query);
+}
+
+/**
+ * yields all categories
+ * @return array
+ */
+function getAllCategories(){
+    $query = "SELECT * FROM `category` ORDER BY parent_id ASC;";
     return executeSelection($query);
 }
 
