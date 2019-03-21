@@ -53,3 +53,13 @@ body{
 .userBoxHidden{
    display: none;
 }
+
+textarea {
+    position:relative;
+    width: 100%;
+    height: 100%;
+    resize: true;
+    box-sizing: border-box; 
+}
+
+

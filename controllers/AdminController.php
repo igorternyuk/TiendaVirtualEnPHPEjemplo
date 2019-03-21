@@ -65,3 +65,57 @@ function updatecatAction(){
     echo json_encode($res);
     return;
 }
+
+function productAction($smarty){
+    $allSubCats = getAllSubCategories();
+    $allAvailableProducts = getAllAvailableProducts();
+    
+    $smarty->assign('pageTitle', "Управление категориями");
+    $smarty->assign('allSubCats', $allSubCats);
+    $smarty->assign('allProducts', $allAvailableProducts);
+    loadTemplate($smarty, 'adminHeader');
+    loadTemplate($smarty, 'adminProduct');
+    loadTemplate($smarty, 'adminFooter');
+}
+
+function addnewproductAction(){
+    $name = filter_input(INPUT_POST, 'newProductName');
+    $categoryId = filter_input(INPUT_POST, 'newProductCategoryId');
+    $price = filter_input(INPUT_POST, 'newProductPrice');
+    $description = filter_input(INPUT_POST, 'newProductDescription');
+    $res = [];
+    if(createNewProduct($name, $categoryId, $price, $description)){
+        $res['success'] = 1;
+        $res['message'] = "Новый товар успешно создан";
+    } else {
+        $res['success'] = 0;
+        $res['message'] = "Ошибка создания товара";
+    }
+    echo json_encode($res);
+    return;
+}
+
+function updateproductAction(){
+    $productId = filter_input(INPUT_POST, 'productId');
+    $name = filter_input(INPUT_POST, 'name');
+    $categoryId = filter_input(INPUT_POST, 'categoryId');
+    $price = filter_input(INPUT_POST, 'price');
+    $description = filter_input(INPUT_POST, 'description');
+    $status = filter_input(INPUT_POST, 'description');
+    $image = filter_input(INPUT_POST, 'status');
+    $res = [];
+    if(updateProduct($productId, $name, $categoryId, $price, $description,
+           $status, $image)){
+        $res['success'] = 1;
+        $res['message'] = "Товар успешно обновлен";
+    } else {
+        $res['success'] = 0;
+        $res['message'] = "Ошибка обновления товара";
+    }
+    echo json_encode($res);
+    return;
+}
+
+function uploadAction(){
+    
+}

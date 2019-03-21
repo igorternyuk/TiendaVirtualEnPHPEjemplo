@@ -71,6 +71,15 @@ function getAllCategories(){
 }
 
 /**
+ * yields all subcategories
+ * @return array
+ */
+function getAllSubCategories(){
+    $query = "SELECT * FROM category WHERE NOT parent_id = 0;";
+    return executeSelection($query);
+}
+
+/**
  * retrieves all main categories including children
  * @return array
  */

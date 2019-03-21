@@ -51,3 +51,43 @@ function updateCategory(categoryId){
         }
     });
 }
+
+function newProduct(){
+    let postData = {};
+    postData['newProductName'] = $("#newProductName").val();
+    postData['newProductCategoryId'] = $("#newProductCategoryId").val();
+    postData['newProductPrice'] = $("#newProductPrice").val();
+    postData['newProductDescription'] = $("#newProductDescription").val();
+    $.ajax({
+        type: 'POST',
+        async: false,
+        dataType: 'json',
+        data: postData,
+        url: "/admin/addnewproduct/",
+        success: function(data){
+            if(data['success']){
+                alert(data['message']);
+            }
+        }
+    });
+}
+
+function updateProduct(productId){
+    /*
+     * $productId = filter_input(INPUT_POST, 'productId');
+    $name = filter_input(INPUT_POST, 'name');
+    $categoryId = filter_input(INPUT_POST, 'categoryId');
+    $price = filter_input(INPUT_POST, 'price');
+    $description = filter_input(INPUT_POST, 'description');
+    $status = filter_input(INPUT_POST, 'description');
+    $image = filter_input(INPUT_POST, 'status');
+    */
+    let postData = {};
+    postData['productId'] = productId;
+    postData['name'] = $("#productName_" + productId).val();
+    postData['categoryId'] = $("#productCategoryId_" + productId).val();
+    postData['price'] = $("#newProductDescription").val();
+    postData['description'] = $("#newProductCategoryId").val();
+    postData['status'] = $("#newProductPrice").val();
+    postData['image'] = $("#newProductDescription").val();
+}
