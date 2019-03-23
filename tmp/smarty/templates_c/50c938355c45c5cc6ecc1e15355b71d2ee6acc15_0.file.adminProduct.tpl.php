@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-03-21 16:04:26
+/* Smarty version 3.1.33, created on 2019-03-22 09:54:20
   from '/opt/lampp/htdocs/myshop.local/views/admin/adminProduct.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5c93a7fa86fd79_41001594',
+  'unifunc' => 'content_5c94a2bc1ae4a1_07195281',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '50c938355c45c5cc6ecc1e15355b71d2ee6acc15' => 
     array (
       0 => '/opt/lampp/htdocs/myshop.local/views/admin/adminProduct.tpl',
-      1 => 1553180664,
+      1 => 1553244847,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5c93a7fa86fd79_41001594 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5c94a2bc1ae4a1_07195281 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div id="boxAddNewProduct">
 <table border="1" cellpadding="1" cellspacing="1">
     <caption>Добавить товар</caption>
@@ -75,7 +75,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             <th>Цена</th>
             <th>Описание</th>
             <th>Изображение</th>
-            <th>В наличии</th>
+            <th>Удален</th>
             <th>Сохранить</th>
         </tr>
         <?php
@@ -134,8 +134,9 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 " width="100"></img>
                     <?php }?>
                     <form action="/admin/upload/" method='post' enctype="multipart/form-data">
-                        <input type="file" name="pathToImage">
-                        <input type="hidden" name="productId">
+                        <input type="file" name="imageFile">
+                        <input type="hidden" name="productId" value="<?php echo $_smarty_tpl->tpl_vars['product']->value['id'];?>
+">
                         <input type="submit" name="btnUploadImage" value="Загрузить">
                     </form>
                 </td>

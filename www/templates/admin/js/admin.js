@@ -73,21 +73,25 @@ function newProduct(){
 }
 
 function updateProduct(productId){
-    /*
-     * $productId = filter_input(INPUT_POST, 'productId');
-    $name = filter_input(INPUT_POST, 'name');
-    $categoryId = filter_input(INPUT_POST, 'categoryId');
-    $price = filter_input(INPUT_POST, 'price');
-    $description = filter_input(INPUT_POST, 'description');
-    $status = filter_input(INPUT_POST, 'description');
-    $image = filter_input(INPUT_POST, 'status');
-    */
     let postData = {};
     postData['productId'] = productId;
     postData['name'] = $("#productName_" + productId).val();
     postData['categoryId'] = $("#productCategoryId_" + productId).val();
-    postData['price'] = $("#newProductDescription").val();
-    postData['description'] = $("#newProductCategoryId").val();
-    postData['status'] = $("#newProductPrice").val();
-    postData['image'] = $("#newProductDescription").val();
+    postData['price'] = $("#productPrice_" + productId).val();
+    postData['description'] = $("#productDescription_" + productId).val();
+    postData['status'] = $("#productStatus_" + productId).attr("checked") ? 0 : 1;
+    //postData['image'] = $("#newProductCategoryId").val();
+    console.log("updateProduct postData:");
+    console.log(postData);
+    $.ajax({
+        type: "post",
+        dataType: 'json',
+        data: postData,
+        url: "/admin/updateproduct/",
+        success: function(data){
+            if(data['success']){
+                alert(data['message']);
+            }
+        }
+    });
 }

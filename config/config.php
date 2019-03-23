@@ -15,6 +15,8 @@ define('TemplatePostfix', ".tpl");
 
 define('TemplateWebPath',"/templates/{$template}/");
 define('TemplateAdminWebPath',"/templates/{$templateAdmin}/");
+define('MaxImageFileSize', 1 * 1024 * 1024);
+define('ImageExtensions', ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tif']);
 
 require '../library/Smarty/libs/Smarty.class.php';
 

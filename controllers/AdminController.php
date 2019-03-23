@@ -101,8 +101,8 @@ function updateproductAction(){
     $categoryId = filter_input(INPUT_POST, 'categoryId');
     $price = filter_input(INPUT_POST, 'price');
     $description = filter_input(INPUT_POST, 'description');
-    $status = filter_input(INPUT_POST, 'description');
-    $image = filter_input(INPUT_POST, 'status');
+    $status = filter_input(INPUT_POST, 'status');
+    $image = filter_input(INPUT_POST, 'image');
     $res = [];
     if(updateProduct($productId, $name, $categoryId, $price, $description,
            $status, $image)){
@@ -117,5 +117,47 @@ function updateproductAction(){
 }
 
 function uploadAction(){
+    $productId = filter_input(INPUT_POST, 'productId');
+    $size = $_FILES['imageFile']['size'];
+    //echo "<br/>File size: ".$size;
+    if($size > MaxImageFileSize){
+        echo "Файл слишком большой.";
+        return;
+    }
     
+    $tmp = $_FILES['imageFile']['tmp_name'];
+    $type = $_FILES['imageFile']['type'];
+    
+    $check = getimagesize($tmp);
+    if(!$check){
+        echo "Файл не является изображением";
+        return;
+    }
+    
+    $name = $_FILES['imageFile']['name'];
+    //echo "<br/>File name: ".$name;
+    $ext = pathinfo($name, PATHINFO_EXTENSION);
+   // echo "<br/>File extension: ".$ext;
+    if(!in_array($ext, ImageExtensions)){
+        echo "Неизвестный формат изображения";
+        return;
+    }
+    
+    //echo "<br/>File type: ".$type;
+    $newFileName = $productId.".".$ext;
+    //echo "Новое имя файла: ".$newFileName;
+    if(is_uploaded_file($tmp)){
+       // echo "File was uploaded";
+        $res = move_uploaded_file($tmp, $_SERVER['DOCUMENT_ROOT']."/images/product/".$newFileName);
+        if($res){
+           // echo "Updating product image";
+            $res = updateProductImage($productId, $newFileName);
+            if($res){
+                //return $newFileName;
+                redirect("/admin/product/");
+            }           
+        }
+    } else {
+        echo "Ошибка загрузки файла";
+    }
 }

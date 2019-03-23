@@ -6,6 +6,14 @@
 
 include_once '../config/db.php';
 
+/**
+ * Creates a new product
+ * @param string $name new product name
+ * @param int $categoryId new product category id
+ * @param float $price new product price
+ * @param string $description new product description
+ * @return TRUE in the case of success and FALSE otherwise
+ */
 function createNewProduct($name, $categoryId, $price, $description){
     filterSQLParams($name, $description);
     $categoryId = intval($categoryId);
@@ -16,6 +24,17 @@ function createNewProduct($name, $categoryId, $price, $description){
     return executeUpdate($query);
 }
 
+/**
+ * Updates existing product information
+ * @param int $productId product id
+ * @param type $name product name
+ * @param type $categoryId product category id
+ * @param type $price product price
+ * @param type $description product description
+ * @param type $status product status
+ * @param type $image product image file name
+ * @return TRUE in the case of success and FALS otherwise
+ */
 function updateProduct($productId, $name, $categoryId, $price, $description,
         $status, $image = null){
     $productId = intval($productId);
@@ -23,41 +42,59 @@ function updateProduct($productId, $name, $categoryId, $price, $description,
     $categoryId = intval($categoryId);
     $price = floatval($price);
     $set = [];
-    if($name !== null){
+    if($name != null){
         array_push($set, "`name` = '{$name}'");
     }
     
-    if($categoryId !== null){
+    if($categoryId && $categoryId > 0){
         array_push($set, "`category_id` = '{$categoryId}'");
     }
     
-    if($price !== null){
+    if($price > 0){
         array_push($set, "`price` = '{$price}'");
     }
     
-    if($description !== null){
+    if($description != null){
         array_push($set, "`description` = '{$description}'");
     }
     
-    if($status !== null){
+    if($status != null){
         array_push($set, "`status` = '{$status}'");
     }
     
-    if($image !== null){
+    if($image != null){
         array_push($set, "`image` = '{$image}'");
     }
     
     $set = implode($set, ", ");
     $query = "UPDATE `product` SET {$set} WHERE `id` = {$productId} LIMIT 1;";
-    debug($query);
+    //debug($query);
     return executeUpdate($query);
 }
 
+/**
+ * Updates product image
+ * @param type $productId product id
+ * @param type $image product image file name
+ * @return TRUE in the case of success and FALSE otherwise
+ */
+function updateProductImage($productId, $image){
+    return updateProduct($productId, null, null, null, null, null, $image);
+}
+
+/**
+ * yields all products
+ * @return array products
+ */
 function getAllProducts(){
     $query = "SELECT * FROM `product` ORDER BY `category_id` ASC;";
     return executeSelection($query);
 }
 
+/**
+ * yields all available(with status == 1) products
+ * @return array products
+ */
 function getAllAvailableProducts(){
     $query = "SELECT * FROM `product` WHERE `status` = 1 ORDER BY `category_id` ASC;";
     return executeSelection($query);
@@ -128,8 +165,4 @@ function getProductsByName($searchFilter, $sortBy = "name"){
     filterSQLParams($searchFilter);
     $query = "SELECT * FROM `product` WHERE `name` LIKE '%{$searchFilter}%' ORDER BY {$sortBy}; ";
     return executeSelection($query);
-}
-
-function getProductsOfPurchase($orderId){
-    $query = "SELECT * FROM purchase WHERE order_id = {$orderId};";
 }

@@ -43,7 +43,7 @@
             <th>Цена</th>
             <th>Описание</th>
             <th>Изображение</th>
-            <th>В наличии</th>
+            <th>Удален</th>
             <th>Сохранить</th>
         </tr>
         {foreach $allProducts as $product name=products}
@@ -73,8 +73,8 @@
                         <img src="/images/product/{$product['image']}" width="100"></img>
                     {/if}
                     <form action="/admin/upload/" method='post' enctype="multipart/form-data">
-                        <input type="file" name="pathToImage">
-                        <input type="hidden" name="productId">
+                        <input type="file" name="imageFile">
+                        <input type="hidden" name="productId" value="{$product['id']}">
                         <input type="submit" name="btnUploadImage" value="Загрузить">
                     </form>
                 </td>
