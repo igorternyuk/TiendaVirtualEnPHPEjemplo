@@ -126,7 +126,7 @@ function uploadAction(){
     }
     
     $tmp = $_FILES['imageFile']['tmp_name'];
-    $type = $_FILES['imageFile']['type'];
+    //$type = $_FILES['imageFile']['type'];
     
     $check = getimagesize($tmp);
     if(!$check){
@@ -148,7 +148,8 @@ function uploadAction(){
     //echo "Новое имя файла: ".$newFileName;
     if(is_uploaded_file($tmp)){
        // echo "File was uploaded";
-        $res = move_uploaded_file($tmp, $_SERVER['DOCUMENT_ROOT']."/images/product/".$newFileName);
+       $serverRoot = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
+       $res = move_uploaded_file($tmp, $serverRoot."/images/product/".$newFileName);
         if($res){
            // echo "Updating product image";
             $res = updateProductImage($productId, $newFileName);
@@ -160,4 +161,44 @@ function uploadAction(){
     } else {
         echo "Ошибка загрузки файла";
     }
+}
+
+function orderAction($smarty){
+    $orders = getOrders();
+    //debug($orders);
+    $smarty->assign('pageTitle', "Управление заказами");
+    $smarty->assign('orders', $orders);
+    loadTemplate($smarty, 'adminHeader');
+    loadTemplate($smarty, 'adminOrder');
+    loadTemplate($smarty, 'adminFooter');
+}
+
+function updateorderstatusAction(){
+    $orderId = filter_input(INPUT_POST, 'orderId');
+    $orderStatus = filter_input(INPUT_POST, 'orderStatus');
+    $res = [];
+    if(updateOrderStatus($orderId, $orderStatus)){
+        $res['success'] = 1;
+        $res['message'] = "Статус заказа успешно обновлен";
+    } else {
+        $res['success'] = 0;
+        $res['message'] = "Ошибка обновления статуса заказа"; 
+    }
+    echo json_encode($res);
+    return;
+}
+
+function updateorderpaymentdateAction(){
+    $orderId = filter_input(INPUT_POST, 'orderId');
+    $orderPaymentDate = filter_input(INPUT_POST, 'orderPaymentDate');
+    $res = [];
+    if(updateOrderModificationDate($orderId, $orderPaymentDate)){
+        $res['success'] = 1;
+        $res['message'] = "Дата оплаты заказа успешно обновлена";
+    } else {
+        $res['success'] = 0;
+        $res['message'] = "Ошибка обновления даты оплаты заказа"; 
+    }
+    echo json_encode($res);
+    return;
 }

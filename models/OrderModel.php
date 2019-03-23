@@ -8,7 +8,7 @@ function createNewOrder($name, $phone, $address){
                . "Телефон: {$phone}<br />"
                . "Адрес: {$address}<br />";
     $dateCreated = date("Y.m.d H:i:s");
-    $userIP = $_SERVER['REMOTE_ADDR'];
+    $userIP = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
     $totalSum = isset($_SESSION['saleCartTotal']) ? $_SESSION['saleCartTotal'] : 0;
     $sql = "INSERT INTO `order` (`user_id`, `date_created` , `date_payment`,"
            . " `status`, `comment`, `user_ip`, `total_sum`) VALUES"
@@ -25,6 +25,23 @@ function createNewOrder($name, $phone, $address){
     return false;
 }
 
+function updateOrderStatus($orderId, $status){
+    $orderId = intval($orderId);
+    $status = intval($status);
+    $query = "UPDATE `order` SET `status` = '{$status}', `date_modification` = NOW()"
+    . " WHERE `id` = '{$orderId}' LIMIT 1;";
+    //debug($query);
+    return executeUpdate($query);
+}
+
+function updateOrderModificationDate($orderId, $orderPaymentDate){
+    $orderId = intval($orderId);
+    filterSQLParams($orderPaymentDate);
+    $query = "UPDATE `order` SET `date_payment` = '{$orderPaymentDate}',"
+    . " `date_modification` = 'NOW()' WHERE `id` = '{$orderId}' LIMIT 1;";
+    return executeUpdate($query);
+}
+
 /**
  * retrieves all orders of the user with given id
  * @param int $userId user id
@@ -39,4 +56,24 @@ function getUserOrders($userId){
         $order['purchases'] = getPurchasesByOrder($orderId);
     }
     return $userOrders;
+}
+
+function getOrders(){
+    $query = "SELECT o.*, u.name, u.email, u.address, u.phone FROM `order` AS o
+             LEFT JOIN `user` AS u ON o.user_id = u.id ORDER BY `id` DESC;";
+    $orders =  executeSelection($query);
+    foreach($orders as &$order){
+        $order['children'] = getProductsOfOrder($order['id']);
+    }
+    /*$orders = array_filter($order, function($item){
+        return count($order['children']) > 0;
+    });*/
+    return $orders;
+}
+
+function getProductsOfOrder($orderId){
+    $query = "SELECT * FROM purchase AS pu LEFT JOIN product AS pr"
+            . " ON pu.product_id = pr.id WHERE pu.order_id = '{$orderId}'"
+            . " ORDER BY pr.id DESC; ";
+    return executeSelection($query);
 }

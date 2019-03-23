@@ -166,3 +166,5 @@ function getProductsByName($searchFilter, $sortBy = "name"){
     $query = "SELECT * FROM `product` WHERE `name` LIKE '%{$searchFilter}%' ORDER BY {$sortBy}; ";
     return executeSelection($query);
 }
+
+
