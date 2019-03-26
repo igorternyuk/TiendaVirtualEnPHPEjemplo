@@ -1,0 +1,117 @@
+.ve-mostread li{
+	list-style:none;
+	margin-bottom:15px;
+}
+.ve-mostread{
+	padding:0px;
+	margin:20px 10px 0px 10px !important;
+}
+.ve-thumb{
+	float:left;
+	background:url(http://joomla.local/modules/mod_ve_mostread/tmpl/images/background.png) no-repeat;
+	margin-right:5px;
+	width:79px;
+	height:52px;
+	overflow:hidden;
+	padding-left:4px;
+	padding-top:3px;
+}
+.ve-mostread .ve-thumb a{
+	display:block !important;
+	width:75px;
+	height:48px !important;
+	overflow:hidden;
+}
+.ve-mostread img{
+	width:75px;
+	border:0px;
+}
+a.ve-link,a.ve-link:visited{
+	color:#fff;
+	font-size:12px;
+}
+a.ve-link:hover{
+	color:#303030 !important;
+}
+.ve-mostread li a{
+	font-weight:bold !important;
+	background:none !important;
+	display:inline !important;
+	height:auto !important;
+	line-height:120% !important;
+}
+.joomimg97_imgct {
+width:33% !important;
+float:left;
+}
+.joomimg97_img {
+display:block;
+text-align:left!important;
+vertical-align:top!important;
+}
+.joomimg97_txt {
+clear:both;text-align:left!important;
+vertical-align:top!important;
+}
+
+.joomcat96_clr {
+  clear:both;
+}
+.joomcat96_row {
+  overflow:hidden;
+  padding-bottom:0.5em;
+}
+.joomcat96_imgct {
+  width:30% !important;
+  float:left;
+}
+.joomcat96_img {
+  text-align:center !important;
+}
+.joomcat96_img img{
+  border: 1px solid #C3C3C3;
+  padding: 3px;
+  background-color: #FFFFFF;
+}
+.joomcat96_txt {
+  text-align:center !important;
+  padding-top:0.5em;
+}
+.joomcat96_starrating {
+  width:80px;
+  background: url(http://joomla.local/components/com_joomgallery/assets/images/star_gr.png) 0 0 repeat-x;
+  margin: 0 auto;
+}
+.joomcat96_starrating div {
+  height:16px;
+  background: url(http://joomla.local/components/com_joomgallery/assets/images/star_orange.png) 0 0 repeat-x;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.joomcat ul{
+        list-style:none;
+        padding:0px;
+        margin:0px;
+}
+.joomcat ul li{
+        line-height:100%;
+}
+.joomcat .cat_img img{
+        width:160px;
+        height: 150px;
+        border: 1px solid #c8c8c8;
+        padding:3px;
+}
+
+.joomcat a{
+        color:#2f2f2f !important;
+        font-size:10px;
+        font-weight:bold !important;
+}
+
+
+.joomcat a:hover{
+        text-decoration:none;
+}
+.glast { margin-right:0px !important; }

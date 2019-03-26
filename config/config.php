@@ -5,7 +5,7 @@ define('PathPostfix', 'Controller.php');
 
 
 //Used template
-$template = 'default';
+$template = 'texturia';
 $templateAdmin = 'admin';
 
 //Preffix and suffix for template pathes
