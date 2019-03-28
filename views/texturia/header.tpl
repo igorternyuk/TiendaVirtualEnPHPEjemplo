@@ -23,7 +23,7 @@
         <div id="jf-bottom-bg">
             <div id="jf-wrapper">
                 <div id="jf-topleft">
-                    <div class="custom"><p>LOREM IPSUM DOLOR SIT AMET</p></div>
+                    <div class="custom"><p>Добро пожаловать в наш магазин!</p></div>
                 </div>
                 <div id="jf-topright">
                     <div class="custom"  >
@@ -46,7 +46,7 @@
                         <!-- Main menu module -->
                         <div id="jf-mainmenu">
                             <span style="font-size: 34px; font-weight: bold">
-                                Интернет магазин
+                                Интернет-магазин
                             </span>
                         </div>
                 </div>

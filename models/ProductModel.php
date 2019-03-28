@@ -124,7 +124,19 @@ function getLastProducts($limit = null){
  */
 function getProductsByCategoryId($categoryId){
     $id = intval($categoryId);
-    $query = "SELECT * FROM product WHERE category_id = '{$id}';";
+    $query = "SELECT * FROM `product` WHERE `category_id` = '{$id}';";
+    return executeSelection($query);
+}
+
+/**
+ * retrieves all available products of given category
+ * @param type $categoryId category id
+ * @return array of products
+ */
+function getAllAvailableProductsByCategoryId($categoryId){
+    $id = intval($categoryId);
+    $query = "SELECT * FROM `product` WHERE `product`.`status` = 1"
+            . " AND `category_id` = '{$id}';";
     return executeSelection($query);
 }
 
@@ -135,7 +147,7 @@ function getProductsByCategoryId($categoryId){
  */
 function getProductById($id){
     $id = intval($id);
-    $query = "SELECT * FROM product WHERE id = '{$id}';";
+    $query = "SELECT * FROM `product` WHERE `id` = '{$id}';";
     $res = executeSelection($query);
     return count($res) > 0 ? $res[0] : false;
 }
@@ -150,7 +162,7 @@ function getProductsByIds($ids){
         $id = intval($id);
     }
     $ids = implode($ids, ", ");
-    $query = "SELECT * FROM product WHERE id IN ({$ids});";
+    $query = "SELECT * FROM `product` WHERE `id` IN ({$ids});";
     return executeSelection($query);
     
 }

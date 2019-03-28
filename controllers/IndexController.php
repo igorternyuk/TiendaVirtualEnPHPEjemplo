@@ -17,18 +17,20 @@ function indexAction($smarty){
     loadTemplate($smarty, 'footer');
 }
 
-function searchAction(){
+function searchAction($smarty){
     $searchFilter = filter_input(INPUT_POST, 'searchFilter');
     $sorter = filter_input(INPUT_POST, 'productSorter');
     $searchResults = getProductsByName($searchFilter, $sorter);
+    $smarty->assign('rsProducts', $searchResults);
+    $resultPage = fetchTemplate($smarty, 'galery');
     $resData = [];
-    if(count($searchResults) > 0){
-        $resData['products'] = $searchResults;
+    $resData['resultPage'] = $resultPage;
+    if(count($searchResults) > 0){        
         $resData['success'] = 1;
     } else {
-        $resData['products'] = [];
         $resData['success'] = 0;
     }
     
+    //loadTemplate($smarty, 'index');
     echo json_encode($resData);
 }

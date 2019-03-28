@@ -1,3 +1,11 @@
+.userBoxHidden{
+   display: none;
+}
+
+.hideme{
+   display: none;
+}
+
 .ve-mostread li{
 	list-style:none;
 	margin-bottom:15px;
@@ -99,7 +107,7 @@ vertical-align:top!important;
 }
 .joomcat .cat_img img{
         width:160px;
-        height: 150px;
+        /*height: 150px;*/
         border: 1px solid #c8c8c8;
         padding:3px;
 }

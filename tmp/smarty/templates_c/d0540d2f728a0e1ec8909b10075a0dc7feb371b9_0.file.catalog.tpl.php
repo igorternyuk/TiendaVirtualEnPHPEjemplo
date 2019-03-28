@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-03-28 08:33:47
-  from '/opt/lampp/htdocs/myshop.local/views/default/index.tpl' */
+/* Smarty version 3.1.33, created on 2019-03-28 08:25:23
+  from '/opt/lampp/htdocs/myshop.local/views/default/catalog.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5c9c78db7b9e56_43746527',
+  'unifunc' => 'content_5c9c76e387bee8_66937464',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '78e182b5d879875be31ab13c4a7dd21cbbfe0827' => 
+    'd0540d2f728a0e1ec8909b10075a0dc7feb371b9' => 
     array (
-      0 => '/opt/lampp/htdocs/myshop.local/views/default/index.tpl',
-      1 => 1553758374,
+      0 => '/opt/lampp/htdocs/myshop.local/views/default/catalog.tpl',
+      1 => 1553756783,
       2 => 'file',
     ),
   ),
@@ -20,22 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5c9c78db7b9e56_43746527 (Smarty_Internal_Template $_smarty_tpl) {
-?>
-<div id="searchBox">
-    <input type="text" id="searchFilter" name="searchFilter" placeholder="Найти товар..."  onkeyup="fetchProductsByName();">
-    <input type="button" id="btnSearchProducts" name="btnSearchProducts" value="Найти" onclick="fetchProductsByName();">
-Отсортировать по: 
-<select id="productSorter" name="productSorter" onchange="fetchProductsByName();">
-    <option id="name" name="name" value="name">Имени</option>
-    <option id="price_asc" name="price_asc" value="price ASC">От дешевых к дорогим</option>
-    <option id="price_desc" name="price_desc" value="price DESC">От дорогим к дешевым</option>
-</select>
-<br /><br />
-</div>
-
-<div id="results">
-<?php
+function content_5c9c76e387bee8_66937464 (Smarty_Internal_Template $_smarty_tpl) {
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['rsProducts']->value, 'product', false, NULL, 'products', array (
   'iteration' => true,
 ));
@@ -60,8 +45,5 @@ $_smarty_tpl->tpl_vars['__smarty_foreach_products']->value['iteration']++;
     <?php }
 }
 }
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>   
-</div>
-            
-<?php }
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>   <?php }
 }

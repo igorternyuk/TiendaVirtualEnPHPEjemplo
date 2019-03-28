@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-03-26 15:40:47
+/* Smarty version 3.1.33, created on 2019-03-28 13:22:00
   from '/opt/lampp/htdocs/myshop.local/views/texturia/header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5c9a39efb22579_51521529',
+  'unifunc' => 'content_5c9cbc68d2e238_33613765',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '786e8c49ed26914fdff8530d42020b8d2cd28841' => 
     array (
       0 => '/opt/lampp/htdocs/myshop.local/views/texturia/header.tpl',
-      1 => 1553611235,
+      1 => 1553775718,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5c9a39efb22579_51521529 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5c9cbc68d2e238_33613765 (Smarty_Internal_Template $_smarty_tpl) {
 ?><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" >
  <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -58,7 +58,7 @@ css/ieonly.css" rel="stylesheet" type="text/css" />
         <div id="jf-bottom-bg">
             <div id="jf-wrapper">
                 <div id="jf-topleft">
-                    <div class="custom"><p>LOREM IPSUM DOLOR SIT AMET</p></div>
+                    <div class="custom"><p>Добро пожаловать в наш магазин!</p></div>
                 </div>
                 <div id="jf-topright">
                     <div class="custom"  >
@@ -82,7 +82,7 @@ images/logo.png"/></a>
                         <!-- Main menu module -->
                         <div id="jf-mainmenu">
                             <span style="font-size: 34px; font-weight: bold">
-                                Интернет магазин
+                                Интернет-магазин
                             </span>
                         </div>
                 </div>

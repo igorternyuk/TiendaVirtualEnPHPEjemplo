@@ -24,6 +24,10 @@ function loadTemplate($smarty, $templateName){
    $smarty->display($templateName . TemplatePostfix); 
 }
 
+function fetchTemplate($smarty, $templateName){
+   return $smarty->fetch($templateName . TemplatePostfix);  
+}
+
 function debug($value = null, $die = TRUE){
     echo 'Debug <br> <pre>';
     print_r($value);

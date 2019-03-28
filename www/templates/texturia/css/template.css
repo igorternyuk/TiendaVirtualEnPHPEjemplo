@@ -230,7 +230,7 @@ background:url(../images/jf_div.png) repeat-x bottom left;
 .jfmod-bot{
 	background:url(../images/jf_gray_bottom.png) no-repeat top left;
 	height:11px;
-	width:240px;
+	width:465px;
 }
 .module_orange .jfmod-top{
 	background:url(../images/jf_orange_top.png) no-repeat top left;
@@ -333,10 +333,10 @@ background:url(../images/jf_div.png) repeat-x bottom left;
 #jf-right .module_social .jfmod-mid img{
 	margin-left:15px;
 }
-#jf-right #modlgn_username,#jf-right #modlgn_passwd{
+.modlgn_username, .modlgn_passwd, #jf-right #modlgn_username,#jf-right modlgn_passwd{
 	height:30px;
 	line-height:30px;
-	width:199px;
+	width:210px;
 	padding-left:10px;
 	border:0px;
 	background:url(../images/jf_input.png) no-repeat;
@@ -344,6 +344,7 @@ background:url(../images/jf_div.png) repeat-x bottom left;
 	color:#737373;
 	margin-top:3px;
 }
+
 #jf-right .re-link{
 	font-size:12px;
 	color:#fff;
@@ -467,7 +468,7 @@ background:url(../images/jf_div.png) repeat-x bottom left;
 	cursor:pointer;
 }
 
-#jf-footer{width:1000px;position:absolute;bottom:0px;height:465px;overflow:hidden;}
+#jf-footer{width:1000px;position:absolute;bottom:0px;height:240px;overflow:hidden;}
 #jf-bottom{margin-left:34px;width:952px;height:177px;background:url(../images/jf-bottom.png) no-repeat;padding-top:10px;}
 #jf-bottom h3{font-size:16px;padding-left:20px;}
 #jf-breadcrumbs{margin-top:5px;margin-bottom:15px;}

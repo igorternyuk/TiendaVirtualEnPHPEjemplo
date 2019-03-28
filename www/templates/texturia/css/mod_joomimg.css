@@ -6,10 +6,10 @@
   padding:4px 0;
 }
 .joomimg_row a{
-	display:block;
+	/*display:block;*/
 	background:url(bg.png) no-repeat;
 	height:60px;
-	width:60px;
+	width:120px;
 	padding-left:3px;
 	padding-top:2px;
 	overflow:hidden;

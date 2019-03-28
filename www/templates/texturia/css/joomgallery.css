@@ -322,7 +322,7 @@ div.jg_detailnavi {
 }
 div.jg_detailnavi a:link, div.jg_detailnavi a:visited {
 	color: #fc930a;
-	display: block;
+	/*display: block;*/
 	font-weight: bold;
 	width: 152px;
 }
