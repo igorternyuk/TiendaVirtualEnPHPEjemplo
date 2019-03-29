@@ -202,3 +202,21 @@ function updateorderpaymentdateAction(){
     echo json_encode($res);
     return;
 }
+
+function createxmlAction(){
+    $rsProducts = getAllProducts();
+    $xml = new DOMDocument('1.0', 'utf-8');
+    $xmlProducts = $xml->appendChild($xml->createElement('products'));
+    
+    foreach($rsProducts as $product){
+        $xmlProduct = $xmlProducts->appendChild($xml->createElement('product'));
+        foreach($product as $key => $val){
+            $xmlName = $xmlProduct->appendChild($xml->createElement($key));
+            $xmlName->appendChild($xml->createTextNode($val));
+        }
+    }
+    
+    //debug2($xml);
+    $xml->save(filter_input(INPUT_SERVER, 'DOCUMENT_ROOT') . "/xml/products.xml");
+    echo "ok";
+}

@@ -33,6 +33,8 @@
 </div>
 
 <div id="boxUpdateProducts">
+    <input type="button" id="btnCreateXML" value='Создать XML' onclick="createXML();">
+    <div id="xml-place"></div>
     <table border="1" cellpadding="1" cellspacing="1">
         <caption>Товары</caption>
         <tr>

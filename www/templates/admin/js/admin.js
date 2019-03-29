@@ -148,3 +148,16 @@ function toggleProductsView(orderId){
         $("#toggleProducts_" + orderId).html("<strong>Показать товары заказа</strong>");
     }
 }
+
+function createXML(){
+    $.ajax({
+        type: 'post',
+        async: false,
+        dataType: 'html',
+        url: '/admin/createxml/',
+        success: function(data){
+            $("#xml-place").html(data);
+            window.open('http://myshop.local/xml/products.xml', '_blank');
+        }
+    });
+}
