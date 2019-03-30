@@ -116,3 +116,12 @@ function filterSQLParams(&...$params){
     }
     $db->closeConnection();
 }
+
+function gellCyrillicLetters(){
+    $abc = array();
+    $i = 0;
+    foreach (range(chr(0xC0),chr(0xDF)) as $v){
+        $abc[$i++] = iconv('CP1251','UTF-8',$v);
+    }
+    return $abc;
+}

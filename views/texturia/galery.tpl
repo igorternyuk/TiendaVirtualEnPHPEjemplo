@@ -22,4 +22,5 @@
             {/if}
         {/foreach}
     </div>
+    {include file='pagination.tpl'}
 </div>

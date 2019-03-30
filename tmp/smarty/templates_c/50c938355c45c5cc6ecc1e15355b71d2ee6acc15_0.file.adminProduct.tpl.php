@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-03-28 16:57:48
+/* Smarty version 3.1.33, created on 2019-03-29 08:47:36
   from '/opt/lampp/htdocs/myshop.local/views/admin/adminProduct.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5c9ceefc131b79_57165528',
+  'unifunc' => 'content_5c9dcd986ad4c1_22773707',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '50c938355c45c5cc6ecc1e15355b71d2ee6acc15' => 
     array (
       0 => '/opt/lampp/htdocs/myshop.local/views/admin/adminProduct.tpl',
-      1 => 1553788665,
+      1 => 1553843428,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5c9ceefc131b79_57165528 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5c9dcd986ad4c1_22773707 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div id="boxAddNewProduct">
 <table border="1" cellpadding="1" cellspacing="1">
     <caption>Добавить товар</caption>
@@ -67,6 +67,11 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 <div id="boxUpdateProducts">
     <input type="button" id="btnCreateXML" value='Создать XML' onclick="createXML();">
     <div id="xml-place"></div>
+    <hr>
+    <form action="/admin/importfromxml/" method="post" enctype="multipart/form-data">
+        <input type="file" name="filename">
+        <input type="submit" value="Загрузить"><br />
+    </form>
     <table border="1" cellpadding="1" cellspacing="1">
         <caption>Товары</caption>
         <tr>
@@ -136,7 +141,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 " width="100"></img>
                     <?php }?>
                     <form action="/admin/upload/" method='post' enctype="multipart/form-data">
-                        <input type="file" name="imageFile">
+                        <input type="file" name="filename">
                         <input type="hidden" name="productId" value="<?php echo $_smarty_tpl->tpl_vars['product']->value['id'];?>
 ">
                         <input type="submit" name="btnUploadImage" value="Загрузить">

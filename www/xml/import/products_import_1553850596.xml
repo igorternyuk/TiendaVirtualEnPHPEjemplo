@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<products>
+	<product>
+		<category_id>13</category_id>
+		<name>Asus X55</name>
+		<description>Asus X55 description</description>
+		<price>17500</price>
+		<status>1</status>
+	</product>
+		<product>
+		<category_id>13</category_id>
+		<name>Asus K40IJ</name>
+		<description>Asus K40IJ description</description>
+		<price>3500</price>
+		<status>0</status>
+	</product>
+</products>

@@ -101,18 +101,36 @@ function getAllAvailableProducts(){
 }
 
 /**
+ * counts all available products
+ * @return count of all available products
+ */
+function countAllAvailableProucts($letter = null){
+    $query = "SELECT COUNT(`id`) AS `total` FROM `product` ";
+    if($letter != null){
+        $query .= " WHERE `name` LIKE '{$letter}%'";
+    }
+    $productTotal = executeSelection($query);
+    
+    return isset($productTotal[0]) ? $productTotal[0]['total'] : 0;
+}
+
+/**
  * 
- * @param type $limit max amount of products to display
+ * @param type $limit total amount of products to display
+ * @param type $offset amount of products per page
  * @return array array of products
  */
-function getLastProducts($limit = null){
-    
-    $query = "SELECT * FROM `product`  WHERE `status` = 1 ORDER BY `id` DESC ";
+function getLastProducts($limit = 16, $offset = 6, $letter = null){
+    $query = "SELECT * FROM `product`  WHERE `status` = 1 ";
+    if($letter != null){
+        $query .= " AND `name` LIKE '{$letter}%' ";
+    }
+    $query .= " ORDER BY `id` DESC ";
     if($limit){
         $limit = intval($limit);
-        $query .= "LIMIT {$limit}";
+        $query .= " LIMIT {$offset}, {$limit}; ";
     }   
-    
+    //debug2($query);
     $products = executeSelection($query);
     return $products;
 }
@@ -177,6 +195,26 @@ function getProductsByName($searchFilter, $sortBy = "name"){
     filterSQLParams($searchFilter);
     $query = "SELECT * FROM `product` WHERE `name` LIKE '%{$searchFilter}%' ORDER BY {$sortBy}; ";
     return executeSelection($query);
+}
+
+function importProductsFromXML($products){
+    if(!is_array($products)){
+        return FALSE;
+    }
+    
+    $query = "INSERT INTO `product` (`name`, `category_id`, `price`,"
+            . " `description`, `status`) VALUES ";
+    
+    $size = count($products);
+    for($i = 0; $i < $size; ++$i){
+        if($i > 0) {
+            $query .= " , ";
+        }
+        $product = $products[$i];
+        $query .= " ('" . implode("', '", $product) . "')";
+    }
+    //debug2($query);
+    return executeUpdate($query);
 }
 
 

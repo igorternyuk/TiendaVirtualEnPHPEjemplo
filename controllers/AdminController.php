@@ -68,11 +68,11 @@ function updatecatAction(){
 
 function productAction($smarty){
     $allSubCats = getAllSubCategories();
-    $allAvailableProducts = getAllAvailableProducts();
+    $allProducts = getAllProducts();
     
     $smarty->assign('pageTitle', "Управление категориями");
     $smarty->assign('allSubCats', $allSubCats);
-    $smarty->assign('allProducts', $allAvailableProducts);
+    $smarty->assign('allProducts', $allProducts);
     loadTemplate($smarty, 'adminHeader');
     loadTemplate($smarty, 'adminProduct');
     loadTemplate($smarty, 'adminFooter');
@@ -116,56 +116,68 @@ function updateproductAction(){
     return;
 }
 
-function uploadAction(){
-    $productId = filter_input(INPUT_POST, 'productId');
-    $size = $_FILES['imageFile']['size'];
-    //echo "<br/>File size: ".$size;
+function uploadFile($localFileName, $localPath = "/upload/", $isImage = FALSE){
+    $size = $_FILES['filename']['size'];
     if($size > MaxImageFileSize){
         echo "Файл слишком большой.";
-        return;
+        return false;
     }
+    $ext = pathinfo($_FILES['filename']['name'], PATHINFO_EXTENSION);
+    $pathInfo = pathinfo($localFileName);
     
-    $tmp = $_FILES['imageFile']['tmp_name'];
-    //$type = $_FILES['imageFile']['type'];
-    
-    $check = getimagesize($tmp);
-    if(!$check){
-        echo "Файл не является изображением";
-        return;
-    }
-    
-    $name = $_FILES['imageFile']['name'];
-    //echo "<br/>File name: ".$name;
-    $ext = pathinfo($name, PATHINFO_EXTENSION);
-   // echo "<br/>File extension: ".$ext;
-    if(!in_array($ext, ImageExtensions)){
-        echo "Неизвестный формат изображения";
-        return;
-    }
-    
-    //echo "<br/>File type: ".$type;
-    $newFileName = $productId.".".$ext;
-    //echo "Новое имя файла: ".$newFileName;
-    if(is_uploaded_file($tmp)){
-       // echo "File was uploaded";
-       $serverRoot = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
-       $res = move_uploaded_file($tmp, $serverRoot."/images/product/".$newFileName);
-        if($res){
-           // echo "Updating product image";
-            $res = updateProductImage($productId, $newFileName);
-            if($res){
-                //return $newFileName;
-                redirect("/admin/product/");
-            }           
+    if($isImage){
+        $check = getimagesize($_FILES['filename']['tmp_name']);
+        
+        if(!$check){
+            echo "Файл не является изображением";
+            return FALSE;
         }
+        
+        if(!in_array($ext, ImageExtensions)){
+            echo "Неизвестный формат изображения";
+            return FALSE;
+        }
+        $newFileName = $pathInfo['filename'] . "." . $ext;
+        
     } else {
-        echo "Ошибка загрузки файла";
+        if($ext != $pathInfo['extension']){
+            return false;
+        }
+        $newFileName = $pathInfo['filename'] . "_" . time() . "." . $ext;
     }
+    
+    $fullPath = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT') . $localPath;
+    
+    if(!file_exists($fullPath)){
+        mkdir($fullPath);
+    }
+    
+    if(is_uploaded_file($_FILES['filename']['tmp_name'])){
+        $fullPath .= $newFileName;        
+        $success = move_uploaded_file($_FILES['filename']['tmp_name'],
+                $fullPath);
+        $response = $success == TRUE ? $newFileName : FALSE;
+        return $response;
+    }
+    return FALSE;
+}
+
+function uploadAction(){
+    $productId = intval(filter_input(INPUT_POST, 'productId'));
+    $imgLocalPath = "/images/product/";
+    $uploadedImageName = uploadFile($productId, $imgLocalPath, TRUE);
+    if($uploadedImageName){
+        if(updateProductImage($productId, $uploadedImageName)){
+            redirect("/admin/product/");
+        }  
+    } else {
+        echo "Ошибка загрузки изображения товара";
+        return FALSE;
+    }    
 }
 
 function orderAction($smarty){
     $orders = getOrders();
-    //debug($orders);
     $smarty->assign('pageTitle', "Управление заказами");
     $smarty->assign('orders', $orders);
     loadTemplate($smarty, 'adminHeader');
@@ -219,4 +231,32 @@ function createxmlAction(){
     //debug2($xml);
     $xml->save(filter_input(INPUT_SERVER, 'DOCUMENT_ROOT') . "/xml/products.xml");
     echo "ok";
+}
+
+function importfromxmlAction(){
+    $xmlLocalPath = "/xml/import/";
+    $uploadedFileName = uploadFile("products_import.xml", $xmlLocalPath);
+    //debug2($uploadedFileName);
+    if(!$uploadedFileName){
+        echo "Ошибка загрузки xml файла";
+        return FALSE;
+    }
+    $xmlFile = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT') . $xmlLocalPath . $uploadedFileName;
+    //debug2($xmlFile);
+    $xmlProducts = simplexml_load_file($xmlFile);
+    $i = 0;
+    $products = [];
+    foreach ($xmlProducts as $product){
+        $products[$i]['name'] = htmlentities($product->name, ENT_QUOTES | ENT_IGNORE, 'utf-8');
+        $products[$i]['category_id'] = intval($product->category_id);
+        $products[$i]['price'] = floatval($product->price);
+        $products[$i]['description'] = htmlentities($product->description, ENT_QUOTES | ENT_IGNORE, 'utf-8');
+        $products[$i]['status'] = intval($product->status);
+        ++$i;
+    }
+    
+    $res = importProductsFromXML($products);
+    if($res){
+        redirect("/admin/product/");
+    }
 }

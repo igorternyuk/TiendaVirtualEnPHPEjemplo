@@ -35,6 +35,11 @@
 <div id="boxUpdateProducts">
     <input type="button" id="btnCreateXML" value='Создать XML' onclick="createXML();">
     <div id="xml-place"></div>
+    <hr>
+    <form action="/admin/importfromxml/" method="post" enctype="multipart/form-data">
+        <input type="file" name="filename">
+        <input type="submit" value="Загрузить"><br />
+    </form>
     <table border="1" cellpadding="1" cellspacing="1">
         <caption>Товары</caption>
         <tr>
@@ -75,7 +80,7 @@
                         <img src="/images/product/{$product['image']}" width="100"></img>
                     {/if}
                     <form action="/admin/upload/" method='post' enctype="multipart/form-data">
-                        <input type="file" name="imageFile">
+                        <input type="file" name="filename">
                         <input type="hidden" name="productId" value="{$product['id']}">
                         <input type="submit" name="btnUploadImage" value="Загрузить">
                     </form>

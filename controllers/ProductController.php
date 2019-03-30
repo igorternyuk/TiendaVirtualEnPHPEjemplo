@@ -15,6 +15,9 @@ function indexAction($smarty){
     }
     
     $selectedProduct = getProductById($productID);
+    $selectedProduct['name'] = html_entity_decode($selectedProduct['name']);
+    $selectedProduct['description'] = html_entity_decode($selectedProduct['description']);
+    
     $allCategories = getAllMainCategoriesWithChildren();
     
     $smarty->assign('pageTitle', $selectedProduct['name']);
