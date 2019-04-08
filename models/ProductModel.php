@@ -193,7 +193,8 @@ function getProductsByIds($ids){
  */
 function getProductsByName($searchFilter, $sortBy = "name"){
     filterSQLParams($searchFilter);
-    $query = "SELECT * FROM `product` WHERE `name` LIKE '%{$searchFilter}%' ORDER BY {$sortBy}; ";
+    $query = "SELECT * FROM `product` WHERE `name` LIKE '%{$searchFilter}%'"
+    . " ORDER BY {$sortBy}; ";
     return executeSelection($query);
 }
 

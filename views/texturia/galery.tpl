@@ -22,5 +22,8 @@
             {/if}
         {/foreach}
     </div>
-    {include file='pagination.tpl'}
+    {if isset($paginator)}
+        {include file='pagination.tpl'}
+    {/if}
+    
 </div>
